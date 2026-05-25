@@ -21,11 +21,15 @@
  * content generator for the about scheme query timeout page
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
+#ifndef NeXT
 #include <stdint.h>
+#endif
 #include <stdlib.h>
 
 #include "utils/errors.h"

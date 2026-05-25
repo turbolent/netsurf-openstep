@@ -25,8 +25,10 @@
 #ifndef NETSURF_DESKTOP_TEXTAREA_H
 #define NETSURF_DESKTOP_TEXTAREA_H
 
+#ifndef NeXT
 #include <stdint.h>
 #include <stdbool.h>
+#endif
 
 #include "netsurf/plot_style.h"
 #include "netsurf/mouse.h"

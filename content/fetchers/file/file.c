@@ -31,9 +31,13 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#ifndef NeXT
 #include <unistd.h>
+#endif
 #include <errno.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <string.h>
 #include <strings.h>
 #include <time.h>

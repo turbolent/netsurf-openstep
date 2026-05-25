@@ -28,8 +28,10 @@
  * it that has good coverage along side the other tests.
  */
 
+#ifndef NeXT
 #include <stdint.h>
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 #include <string.h>
 #include <zlib.h>

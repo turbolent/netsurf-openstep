@@ -62,7 +62,7 @@ nserror box_textarea_keypress(html_content *html, struct box *box, uint32_t key)
 	switch (key) {
 	case NS_KEY_NL:
 	case NS_KEY_CR:
-		if (form) {
+		if (form && html->bw != NULL) {
 			res = form_submit(content_get_url(c),
 					  html->bw,
 					  form,
@@ -224,8 +224,10 @@ static void box_textarea_callback(void *data, struct textarea_msg *msg)
 		break;
 
 	case TEXTAREA_MSG_CARET_UPDATE:
+#ifndef NeXT
 		if (html->bw == NULL)
 			break;
+#endif
 
 		if (msg->data.caret.type == TEXTAREA_CARET_HIDE) {
 			union html_focus_owner focus_owner;

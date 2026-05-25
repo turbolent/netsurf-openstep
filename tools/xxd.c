@@ -28,6 +28,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef NeXT
+extern char *optarg;
+extern int optind;
+extern int getopt(int argc, char * const argv[], const char *optstring);
+#endif
+
 static char *get_array_name(const char *fname)
 {
 	int fnamelen;

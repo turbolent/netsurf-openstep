@@ -20,7 +20,9 @@
 
 #include <assert.h>
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 #include <libnsfb.h>
 #include <libnsfb_plot.h>

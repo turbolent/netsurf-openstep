@@ -337,6 +337,11 @@
 #endif
 
 /* GCC.  Clang also defines __GNUC__ so don't detect GCC if using Clang. */
+#if defined(NeXT) && defined(__GNUC__) && defined(__GNUC_MINOR__) && \
+    !defined(__GNUC_PATCHLEVEL__)
+#define __GNUC_PATCHLEVEL__ 0
+#endif
+
 #if defined(__GNUC__) && !defined(__clang__) && !defined(DUK_F_CLANG)
 #define DUK_F_GCC
 #if defined(__GNUC__) && defined(__GNUC_MINOR__) && defined(__GNUC_PATCHLEVEL__)
@@ -676,7 +681,9 @@
 #include <sys/param.h>
 #include <sys/time.h>
 #include <time.h>
+#ifndef NeXT
 #include <stdint.h>
+#endif
 
 #define DUK_USE_DATE_NOW_GETTIMEOFDAY
 #define DUK_USE_DATE_TZO_GMTIME_R
@@ -703,7 +710,9 @@
 /* no endian.h or stdint.h */
 #else
 #include <endian.h>
+#ifndef NeXT
 #include <stdint.h>
+#endif
 #endif  /* DUK_F_BCC */
 #include <sys/param.h>
 #include <sys/time.h>
@@ -738,7 +747,9 @@
 /* no endian.h or stdint.h */
 #else
 #include <endian.h>
+#ifndef NeXT
 #include <stdint.h>
+#endif
 #endif  /* DUK_F_BCC */
 #include <sys/param.h>
 #include <sys/time.h>
@@ -887,7 +898,9 @@
  * __STDC_LIMIT_MACROS and __STDC_CONSTANT_MACROS must be defined before
  * including stdint.h (see above).
  */
+#ifndef NeXT
 #include <stdint.h>
+#endif
 #endif
 
 /* <exception> is only included if needed, based on DUK_USE_xxx flags. */
@@ -1651,7 +1664,9 @@
 /* C99 or compatible */
 
 #define DUK_F_HAVE_64BIT
+#ifndef NeXT
 #include <inttypes.h>
+#endif
 
 typedef uint8_t duk_uint8_t;
 typedef int8_t duk_int8_t;

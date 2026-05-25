@@ -24,7 +24,9 @@
  * This implementation uses the IJG JPEG library.
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 #include <setjmp.h>
 

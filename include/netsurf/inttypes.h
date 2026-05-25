@@ -24,7 +24,9 @@
 #ifndef NETSURF_INTTYPES_H
 #define NETSURF_INTTYPES_H
 
+#ifndef NeXT
 #include <inttypes.h>
+#endif
 
 #ifndef PRIxPTR
 #define PRIxPTR "x"

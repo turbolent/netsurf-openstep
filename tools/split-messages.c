@@ -13,6 +13,80 @@
 
 #include "utils/errors.h"
 
+#ifdef NeXT
+#ifndef _SSIZE_T
+#define _SSIZE_T
+typedef int ssize_t;
+#endif
+extern char *optarg;
+extern int optind;
+extern int getopt(int, char * const *, const char *);
+extern int unlink(const char *);
+
+static char *
+openstep_strdup(const char *s)
+{
+	size_t len;
+	char *copy;
+
+	if (s == NULL) {
+		return NULL;
+	}
+	len = strlen(s) + 1;
+	copy = malloc(len);
+	if (copy != NULL) {
+		memcpy(copy, s, len);
+	}
+	return copy;
+}
+#define strdup openstep_strdup
+
+static ssize_t
+openstep_getline(char **lineptr, size_t *n, FILE *stream)
+{
+	size_t used = 0;
+	int c;
+	char *buf;
+
+	if (lineptr == NULL || n == NULL || stream == NULL) {
+		return -1;
+	}
+
+	if (*lineptr == NULL || *n == 0) {
+		*n = 256;
+		*lineptr = malloc(*n);
+		if (*lineptr == NULL) {
+			return -1;
+		}
+	}
+
+	buf = *lineptr;
+	while ((c = fgetc(stream)) != EOF) {
+		if (used + 1 >= *n) {
+			char *nbuf;
+			*n *= 2;
+			nbuf = realloc(*lineptr, *n);
+			if (nbuf == NULL) {
+				return -1;
+			}
+			*lineptr = nbuf;
+			buf = nbuf;
+		}
+		buf[used++] = (char)c;
+		if (c == '\n') {
+			break;
+		}
+	}
+
+	if (used == 0 && c == EOF) {
+		return -1;
+	}
+	buf[used] = 0;
+	return (ssize_t)used;
+}
+#define getline openstep_getline
+#endif
+
 enum out_fmt {
 	      OUTPUTFMT_NONE = 0,
 	      OUTPUTFMT_MESSAGES,

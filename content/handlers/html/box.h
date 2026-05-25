@@ -28,7 +28,9 @@
 #define NETSURF_HTML_BOX_H
 
 #include <limits.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <libcss/libcss.h>
 
 #include "content/handlers/css/utils.h"

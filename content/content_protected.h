@@ -76,7 +76,7 @@ struct content_handler {
 			browser_mouse_state mouse, int x, int y);
 	nserror (*mouse_action)(struct content *c, struct browser_window *bw,
 			browser_mouse_state mouse, int x, int y);
-	bool (*keypress)(struct content *c, uint32_t key);
+	bool (*keypress)(struct content *c, struct browser_window *bw, uint32_t key);
 	bool (*redraw)(struct content *c, struct content_redraw_data *data,
 			const struct rect *clip,
 			const struct redraw_context *ctx);

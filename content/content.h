@@ -353,7 +353,7 @@ void content_mouse_action(struct hlcache_handle *h, struct browser_window *bw,
  * \param  key	The UCS4 character codepoint
  * \return true if key handled, false otherwise
  */
-bool content_keypress(struct hlcache_handle *h, uint32_t key);
+bool content_keypress(struct hlcache_handle *h, struct browser_window *bw, uint32_t key);
 
 
 /**

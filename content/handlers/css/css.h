@@ -19,7 +19,9 @@
 #ifndef netsurf_css_css_h_
 #define netsurf_css_css_h_
 
+#ifndef NeXT
 #include <stdint.h>
+#endif
 
 #include <libcss/libcss.h>
 

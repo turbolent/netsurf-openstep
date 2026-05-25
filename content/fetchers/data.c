@@ -21,7 +21,9 @@
  * data scheme handling.  See http://tools.ietf.org/html/rfc2397
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <string.h>
 #include <stdarg.h>
 #include <stdlib.h>

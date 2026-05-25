@@ -21,8 +21,10 @@
  * Implementation of framebuffer local history manager.
  */
 
+#ifndef NeXT
 #include <stdint.h>
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 #include <limits.h>
 

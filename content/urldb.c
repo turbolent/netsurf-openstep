@@ -88,7 +88,9 @@
  */
 
 #include <assert.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -3918,7 +3920,7 @@ bool urldb_set_cookie(const char *header, nsurl *url, nsurl *referer)
 
 	/* Get defragmented URL, as 'urlt' */
 	if (nsurl_defragment(url, &urlt) != NSERROR_OK)
-		return NULL;
+		return false;
 
 	scheme = nsurl_get_component(url, NSURL_SCHEME);
 	if (scheme == NULL) {

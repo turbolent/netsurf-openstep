@@ -133,6 +133,23 @@ static void svg_reformat(struct content *c, int width, int height)
 
 	assert(svg->diagram);
 
+	if (width <= 0) {
+		width = 1;
+	}
+	if (height <= 0) {
+		height = 1;
+	}
+
+#ifdef NeXT
+	if (width <= 1 && height <= 1) {
+		svg->current_width = width;
+		svg->current_height = height;
+		c->width = 1;
+		c->height = 1;
+		return;
+	}
+#endif
+
 	/* Avoid reformats to same width/height as we already reformatted to */
 	if (width != svg->current_width || height != svg->current_height) {
 		source_data = content__get_source_data(c, &source_size);
@@ -148,8 +165,8 @@ static void svg_reformat(struct content *c, int width, int height)
 		svg->current_height = height;
 	}
 
-	c->width = svg->diagram->width;
-	c->height = svg->diagram->height;
+	c->width = max(svg->diagram->width, 1);
+	c->height = max(svg->diagram->height, 1);
 }
 
 
@@ -177,6 +194,11 @@ svg_redraw_internal(svg_content *svg,
 	nserror res;
 
 	assert(diagram);
+
+	if (width <= 0 || height <= 0 ||
+			svg->base.width <= 0 || svg->base.height <= 0) {
+		return true;
+	}
 
 	transform[0] = (float) width / (float) svg->base.width;
 	transform[1] = 0;
@@ -304,7 +326,7 @@ svg_redraw(struct content *c,
 {
 	svg_content *svg = (svg_content *)c;
 
-	if ((data->width <= 0) && (data->height <= 0)) {
+	if ((data->width <= 0) || (data->height <= 0)) {
 		/* No point trying to plot SVG if it does not occupy a valid
 		 * area */
 		return true;

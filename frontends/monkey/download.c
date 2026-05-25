@@ -17,7 +17,9 @@
  */
 
 #include <stdio.h>
+#ifndef NeXT
 #include <stdint.h>
+#endif
 #include <stdlib.h>
 
 #include "utils/errors.h"

@@ -26,7 +26,9 @@
  *
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>

@@ -19,7 +19,9 @@
 #ifndef NETSURF_UTILS_HTTP_GENERICS_H_
 #define NETSURF_UTILS_HTTP_GENERICS_H_
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 #include "utils/errors.h"
 

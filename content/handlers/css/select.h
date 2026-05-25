@@ -19,7 +19,9 @@
 #ifndef NETSURF_CSS_SELECT_H_
 #define NETSURF_CSS_SELECT_H_
 
+#ifndef NeXT
 #include <stdint.h>
+#endif
 
 #include <dom/dom.h>
 

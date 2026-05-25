@@ -24,7 +24,9 @@
 #ifndef NETSURF_CONTENT_MIMESNIFF_H_
 #define NETSURF_CONTENT_MIMESNIFF_H_
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 #include <libwapcaplet/libwapcaplet.h>
 #include "utils/errors.h"

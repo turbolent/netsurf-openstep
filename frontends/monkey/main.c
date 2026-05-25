@@ -19,9 +19,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#ifndef NeXT
 #include <sys/select.h>
+#endif
 #include <sys/types.h>
+#ifndef NeXT
 #include <unistd.h>
+#endif
 #include <string.h>
 #include <errno.h>
 #include <signal.h>

@@ -24,7 +24,9 @@
 #ifndef NETSURF_DESKTOP_SAVE_COMPLETE_H_
 #define NETSURF_DESKTOP_SAVE_COMPLETE_H_
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 #include <libwapcaplet/libwapcaplet.h>
 

@@ -1,0 +1,45 @@
+# ----------------------------------------------------------------------------
+# OPENSTEP-specific options
+# ----------------------------------------------------------------------------
+
+# Font renderer used by the libnsfb framebuffer renderer.
+# Supported values:
+#   internal  built-in framebuffer bitmap font
+#   freetype  scalable fonts through FreeType2
+NETSURF_FB_FONTLIB := freetype
+
+# Default framebuffer FreeType font files/search path.
+NETSURF_FB_FONTPATH := /me/fonts
+NETSURF_FB_FONT_SANS_SERIF := arial.ttf
+NETSURF_FB_FONT_SANS_SERIF_BOLD := arialbd.ttf
+NETSURF_FB_FONT_SANS_SERIF_ITALIC := ariali.ttf
+NETSURF_FB_FONT_SANS_SERIF_ITALIC_BOLD := arialbi.ttf
+NETSURF_FB_FONT_SERIF := georgia.ttf
+NETSURF_FB_FONT_SERIF_BOLD := georgiab.ttf
+NETSURF_FB_FONT_SERIF_ITALIC := georgiai.ttf
+NETSURF_FB_FONT_SERIF_ITALIC_BOLD := georgiaz.ttf
+NETSURF_FB_FONT_MONOSPACE := cour.ttf
+NETSURF_FB_FONT_MONOSPACE_BOLD := courbd.ttf
+NETSURF_FB_FONT_MONOSPACE_ITALIC := couri.ttf
+NETSURF_FB_FONT_MONOSPACE_ITALIC_BOLD := courbi.ttf
+NETSURF_FB_FONT_CURSIVE := comic.ttf
+NETSURF_FB_FONT_FANTASY := impact.ttf
+
+# Where to search for NetSurf's resources after looking in ~/.netsurf and
+# $NETSURFRES.  It must have a trailing /
+NETSURF_OPENSTEP_RES_PATH := $(PREFIX)/share/netsurf/:./frontends/openstep/res/
+
+# Disable javascript for the moment
+NETSURF_USE_DUKTAPE := NO
+
+# Enable NetSurf's use of librsvg in conjunction with Cairo to display SVGs
+# Valid options: YES, NO, AUTO
+NETSURF_USE_RSVG := AUTO
+
+# Enable NetSurf's use of libsvgtiny for displaying SVGs
+# Valid options: YES, NO, AUTO
+NETSURF_USE_NSSVG := AUTO
+
+# Enable NetSurf's use of librosprite for displaying RISC OS Sprites
+# Valid options: YES, NO, AUTO
+NETSURF_USE_ROSPRITE := AUTO

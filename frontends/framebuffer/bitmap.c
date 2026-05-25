@@ -21,9 +21,13 @@
  * Framebuffer implementation of generic bitmap interface.
  */
 
+#ifndef NeXT
 #include <inttypes.h>
+#endif
 #include <sys/types.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <assert.h>
 #include <libnsfb.h>
 #include <libnsfb_plot.h>
@@ -143,6 +147,10 @@ static void bitmap_modified(void *bitmap) {
  */
 static void bitmap_set_opaque(void *bitmap, bool opaque)
 {
+#ifdef NETSURF_OPENSTEP_USE_FRAMEBUFFER
+	(void)bitmap;
+	(void)opaque;
+#else
 	nsfb_t *bm = bitmap;
 
 	assert(bm != NULL);
@@ -152,6 +160,7 @@ static void bitmap_set_opaque(void *bitmap, bool opaque)
 	} else {
 		nsfb_set_geometry(bm, 0, 0, NSFB_FMT_ABGR8888);
 	}
+#endif
 }
 
 

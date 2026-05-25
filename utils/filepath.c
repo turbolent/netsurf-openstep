@@ -30,7 +30,9 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+#ifndef NeXT
 #include <unistd.h>
+#endif
 #include <string.h>
 
 #include "utils/dirent.h" /** \todo why is this necessary for atari to get PATH_MAX and is there a better way */

@@ -215,7 +215,9 @@ endif
 
 # We trace during link so that we can determine if a libary changes under us in
 # order to re-link.  This *may* be gcc specific, so may need tweaks in future.
+ifneq ($(HOST),NeXT)
 LDFLAGS += -Wl,--trace
+endif
 
 # ----------------------------------------------------------------------------
 # General make rules
@@ -315,7 +317,7 @@ IFLAGS = $(addprefix -I,$(INCLUDE_DIRS))
 $(EXETARGET): $(OBJECTS) $(RESOURCES) $(MESSAGES) tools/linktrace-to-depfile.pl
 	$(VQ)echo "    LINK: $(EXETARGET)"
 ifneq ($(TARGET),riscos)
-	$(Q)$(CC) -o $(EXETARGET) $(OBJECTS) $(LDFLAGS) > $(DEPROOT)/link-raw.d
+	$(Q)$(LINK_CC) -o $(EXETARGET) $(OBJECTS) $(LDFLAGS) > $(DEPROOT)/link-raw.d
 else
 	@# RISC OS targets are a bit special: we need to convert ELF -> AIF
   ifeq ($(SUBTARGET),-aof)
@@ -395,7 +397,7 @@ $(eval $(foreach SOURCE,$(filter %.cpp,$(SOURCES)), \
 	$(call compile_target_cpp,$(SOURCE),$(subst /,_,$(SOURCE:.cpp=.o)),$(subst /,_,$(SOURCE:.cpp=.d)))))
 
 $(eval $(foreach SOURCE,$(filter %.m,$(SOURCES)), \
-	$(call compile_target_c,$(SOURCE),$(subst /,_,$(SOURCE:.m=.o)),$(subst /,_,$(SOURCE:.m=.d)))))
+	$(call compile_target_m,$(SOURCE),$(subst /,_,$(SOURCE:.m=.o)),$(subst /,_,$(SOURCE:.m=.d)))))
 
 $(eval $(foreach SOURCE,$(filter %.s,$(SOURCES)), \
 	$(call compile_target_s,$(SOURCE),$(subst /,_,$(SOURCE:.s=.o)),$(subst /,_,$(SOURCE:.s=.d)))))

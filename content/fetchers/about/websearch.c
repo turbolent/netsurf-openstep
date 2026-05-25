@@ -21,8 +21,10 @@
  * content generator for the about scheme web search
  */
 
+#ifndef NeXT
 #include <stdbool.h>
 #include <stdint.h>
+#endif
 #include <sys/types.h>
 #include <stdlib.h>
 #include <string.h>

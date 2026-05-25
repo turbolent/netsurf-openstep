@@ -22,7 +22,9 @@
  * Redrawing CONTENT_HTML borders implementation.
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 
 #include "utils/utils.h"

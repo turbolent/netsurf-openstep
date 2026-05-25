@@ -18,6 +18,9 @@
 
 #include <string.h>
 #include <assert.h>
+#ifdef NeXT
+#include <stdio.h>
+#endif
 #include <libwapcaplet/libwapcaplet.h>
 #include <dom/dom.h>
 
@@ -169,6 +172,11 @@ nscss_create(const content_handler *handler,
 	if (xnsbase == NULL) {
 		xnsbase = nsurl_access(content_get_url(&result->base));
 	}
+#ifdef NeXT
+	if (xnsbase == NULL) {
+		xnsbase = "about:blank";
+	}
+#endif
 
 	error = nscss_create_css_data(&result->data,
 			xnsbase, charset, result->base.quirks,

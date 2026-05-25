@@ -1,3 +1,14 @@
+
+THIS FORK
+=======
+
+This fork aims at getting a usable version of NetSurf running under OPENSTEP.
+
+To build, run `gnumake HOST=NeXT TARGET=openstep`.
+
+ORIGINAL NETSURF README
+----------------
+
 NetSurf
 =======
 

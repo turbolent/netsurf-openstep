@@ -26,7 +26,9 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stddef.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 #include "netsurf/inttypes.h"
 #include "netsurf/plot_style.h"

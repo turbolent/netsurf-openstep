@@ -23,7 +23,9 @@
  * This implementation uses the JXL library.
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 #include <setjmp.h>
 #include <string.h>

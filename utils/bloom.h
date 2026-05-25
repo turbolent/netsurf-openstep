@@ -22,9 +22,13 @@
 #ifndef _NETSURF_UTILS_BLOOM_H_
 #define _NETSURF_UTILS_BLOOM_H_
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stddef.h>
+#ifndef NeXT
 #include <stdint.h>
+#endif
 
 struct bloom_filter;
 

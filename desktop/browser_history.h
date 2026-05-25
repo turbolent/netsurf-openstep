@@ -31,7 +31,9 @@
 #ifndef NETSURF_DESKTOP_BROWSER_HISTORY_H
 #define NETSURF_DESKTOP_BROWSER_HISTORY_H
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 #include "utils/errors.h"
 

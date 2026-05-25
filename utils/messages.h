@@ -34,7 +34,9 @@
 #ifndef NETSURF_UTILS_MESSAGES_H_
 #define NETSURF_UTILS_MESSAGES_H_
 
+#ifndef NeXT
 #include <stdint.h>
+#endif
 
 #include "utils/errors.h"
 #include "netsurf/ssl_certs.h"

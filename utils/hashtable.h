@@ -24,7 +24,9 @@
 #ifndef _NETSURF_UTILS_HASHTABLE_H_
 #define _NETSURF_UTILS_HASHTABLE_H_
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 struct hash_table;
 

@@ -23,7 +23,9 @@
  */
 
 #include <assert.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>

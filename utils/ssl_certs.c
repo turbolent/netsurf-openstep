@@ -22,7 +22,9 @@
  */
 
 #include <stdlib.h>
+#ifndef NeXT
 #include <stdint.h>
+#endif
 #include <string.h>
 #include <nsutils/base64.h>
 

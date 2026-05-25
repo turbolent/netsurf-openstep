@@ -18,7 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 #include <string.h>
 

@@ -28,7 +28,9 @@
 
 #include <assert.h>
 #include <limits.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdio.h>
 #include <string.h>
 #include <dom/dom.h>

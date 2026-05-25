@@ -23,9 +23,13 @@
 #ifndef NETSURF_CONTENT_LLCACHE_H_
 #define NETSURF_CONTENT_LLCACHE_H_
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stddef.h>
+#ifndef NeXT
 #include <stdint.h>
+#endif
 
 #include "utils/errors.h"
 #include "utils/nsurl.h"

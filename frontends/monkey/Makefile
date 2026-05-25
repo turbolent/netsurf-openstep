@@ -7,7 +7,9 @@
 # Monkey flag setup (using pkg-config)
 # ----------------------------------------------------------------------------
 
-CWARNFLAGS += -Werror
+ifneq ($(HOST),NeXT)
+  CWARNFLAGS += -Werror
+endif
 
 CFLAGS += -std=c99 \
 	  -Dmonkey -Dnsmonkey -g \

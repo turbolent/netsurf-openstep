@@ -21,9 +21,13 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <assert.h>
+#ifndef NeXT
 #include <stdint.h>
+#endif
 #include <string.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdarg.h>
 
 #include <libnsfb.h>

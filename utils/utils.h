@@ -26,7 +26,9 @@
 #ifndef NETSURF_UTILS_UTILS_H
 #define NETSURF_UTILS_UTILS_H
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 #ifndef NOF_ELEMENTS
 #define NOF_ELEMENTS(array) (sizeof(array)/sizeof(*(array)))
@@ -111,7 +113,11 @@ bool is_dir(const char *path);
 #endif
 #if !defined fallthrough && defined __has_attribute
     #if __has_attribute(__fallthrough__)
+        #ifdef NeXT
+        #define fallthrough
+        #else
         #define fallthrough __attribute__((__fallthrough__))
+        #endif
     #endif
 #endif
 #if !defined fallthrough

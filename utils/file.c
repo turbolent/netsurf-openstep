@@ -25,7 +25,9 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#ifndef NeXT
 #include <unistd.h>
+#endif
 #include <fcntl.h>
 #include <errno.h>
 

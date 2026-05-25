@@ -1,0 +1,7 @@
+# -*- mode: makefile-gmake -*-
+##
+## tool setup for the openstep target
+##
+
+# use native package config
+PKG_CONFIG := pkg-config

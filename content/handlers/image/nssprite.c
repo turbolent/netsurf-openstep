@@ -21,7 +21,9 @@
  * librosprite implementation for content image/x-riscos-sprite
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 #include <string.h>
 

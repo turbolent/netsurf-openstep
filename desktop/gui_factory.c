@@ -17,10 +17,14 @@
  */
 
 #include <stdlib.h>
+#ifndef NeXT
 #include <stdint.h>
 #include <stdbool.h>
+#endif
 #include <string.h>
+#ifndef NeXT
 #include <unistd.h>
+#endif
 
 #include "utils/config.h"
 #include "utils/errors.h"

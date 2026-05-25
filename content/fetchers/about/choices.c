@@ -21,7 +21,9 @@
  * content generator for the about scheme blank page
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stddef.h>
 #include <stdio.h>
 

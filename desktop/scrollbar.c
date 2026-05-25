@@ -23,7 +23,9 @@
  * implementation of scrollbar widget.
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 
 #include "utils/log.h"

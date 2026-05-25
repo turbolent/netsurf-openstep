@@ -25,7 +25,9 @@
 #ifndef NETSURF_HTML_TABLE_H
 #define NETSURF_HTML_TABLE_H
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 struct box;
 

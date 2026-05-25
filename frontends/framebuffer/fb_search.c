@@ -16,7 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <string.h>
 
 #include "utils/log.h"

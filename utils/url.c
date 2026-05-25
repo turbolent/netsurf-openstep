@@ -35,7 +35,9 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 #include "utils/ascii.h"
 #include "utils/config.h"

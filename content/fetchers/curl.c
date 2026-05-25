@@ -32,8 +32,12 @@
 
 #include <assert.h>
 #include <errno.h>
+#ifdef NeXT
+#include <stdio.h>
+#else
 #include <inttypes.h>
 #include <stdbool.h>
+#endif
 #include <string.h>
 #include <strings.h>
 #include <time.h>
@@ -103,8 +107,18 @@
 /* Open SSL compatability for certificate handling */
 #ifdef WITH_OPENSSL
 
+#ifdef NeXT
+#ifndef __APPLE__
+#define NETSURF_OPENSSL_RESTORE_APPLE 1
+#define __APPLE__ 1
+#endif
+#endif
 #include <openssl/ssl.h>
 #include <openssl/x509v3.h>
+#ifdef NETSURF_OPENSSL_RESTORE_APPLE
+#undef __APPLE__
+#undef NETSURF_OPENSSL_RESTORE_APPLE
+#endif
 
 #else /* WITH_OPENSSL */
 
@@ -1980,7 +1994,9 @@ nserror fetch_curl_register(void)
 		.finalise = fetch_curl_finalise
 	};
 
-#if LIBCURL_VERSION_NUM >= 0x073800
+#ifdef NeXT
+	curl_with_openssl = true;
+#elif LIBCURL_VERSION_NUM >= 0x073800
 	/* version 7.56.0 can select which SSL backend to use */
 	CURLsslset setres;
 
@@ -2061,10 +2077,12 @@ nserror fetch_curl_register(void)
 	SETOPT(CURLOPT_NOPROGRESS, 0L);
 	SETOPT(CURLOPT_USERAGENT, user_agent_string());
 	SETOPT(CURLOPT_ENCODING, "gzip");
+	SETOPT(CURLOPT_NOSIGNAL, 1L);
+#ifndef NeXT
 	SETOPT(CURLOPT_LOW_SPEED_LIMIT, 1L);
 	SETOPT(CURLOPT_LOW_SPEED_TIME, 180L);
-	SETOPT(CURLOPT_NOSIGNAL, 1L);
 	SETOPT(CURLOPT_CONNECTTIMEOUT, (long)nsoption_uint(curl_fetch_timeout));
+#endif
 	SETOPT(CURLOPT_OPENSOCKETFUNCTION, fetch_curl_socket_open);
 	SETOPT(CURLOPT_CLOSESOCKETFUNCTION, fetch_curl_socket_close);
 

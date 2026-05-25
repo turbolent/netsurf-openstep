@@ -18,6 +18,8 @@
  */
 
 #include <assert.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include <ft2build.h>
 #include FT_CACHE_H
@@ -48,6 +50,25 @@ static FTC_ImageCache ft_image_cache;
 
 int ft_load_type;
 
+static char *
+fb_strdup(const char *s)
+{
+        char *copy;
+        size_t len;
+
+        if (s == NULL) {
+                return NULL;
+        }
+
+        len = strlen(s) + 1;
+        copy = malloc(len);
+        if (copy != NULL) {
+                memcpy(copy, s, len);
+        }
+
+        return copy;
+}
+
 /* cache manager faceID data to create freetype faceid on demand */
 typedef struct fb_faceid_s {
         char *fontfile; /* path to font */
@@ -63,8 +84,12 @@ enum fb_face_e {
 	FB_FACE_SANS_SERIF_ITALIC_BOLD,
 	FB_FACE_SERIF,
 	FB_FACE_SERIF_BOLD,
+	FB_FACE_SERIF_ITALIC,
+	FB_FACE_SERIF_ITALIC_BOLD,
 	FB_FACE_MONOSPACE,
 	FB_FACE_MONOSPACE_BOLD,
+	FB_FACE_MONOSPACE_ITALIC,
+	FB_FACE_MONOSPACE_ITALIC_BOLD,
 	FB_FACE_CURSIVE,
 	FB_FACE_FANTASY,
 	FB_FACE_COUNT
@@ -125,10 +150,10 @@ fb_new_face(const char *option, const char *resname, const char *fontname)
         newf = calloc(1, sizeof(fb_faceid_t));
 
         if (option != NULL) {
-                newf->fontfile = strdup(option);
+                newf->fontfile = fb_strdup(option);
         } else {
 		filepath_sfind(respaths, buf, fontname);
-                newf->fontfile = strdup(buf);
+                newf->fontfile = fb_strdup(buf);
         }
 
         error = FTC_Manager_LookupFace(ft_cmanager, (FTC_FaceID)newf, &aface);
@@ -257,6 +282,26 @@ bool fb_font_init(void)
 		fb_faces[FB_FACE_SERIF_BOLD] = fb_face;
 	}
 
+	/* italic serif face */
+	fb_face = fb_new_face(NULL,
+			      "serif_italic.ttf",
+			      NETSURF_FB_FONT_SERIF_ITALIC);
+	if (fb_face == NULL) {
+		fb_faces[FB_FACE_SERIF_ITALIC] = fb_faces[FB_FACE_SERIF];
+	} else {
+		fb_faces[FB_FACE_SERIF_ITALIC] = fb_face;
+	}
+
+	/* bold italic serif face */
+	fb_face = fb_new_face(NULL,
+			      "serif_italic_bold.ttf",
+			      NETSURF_FB_FONT_SERIF_ITALIC_BOLD);
+	if (fb_face == NULL) {
+		fb_faces[FB_FACE_SERIF_ITALIC_BOLD] = fb_faces[FB_FACE_SERIF_BOLD];
+	} else {
+		fb_faces[FB_FACE_SERIF_ITALIC_BOLD] = fb_face;
+	}
+
 
 	/* monospace face */
 	fb_face = fb_new_face(nsoption_charp(fb_face_monospace),
@@ -278,6 +323,26 @@ bool fb_font_init(void)
 		fb_faces[FB_FACE_MONOSPACE_BOLD] = fb_faces[FB_FACE_MONOSPACE];
 	} else {
 		fb_faces[FB_FACE_MONOSPACE_BOLD] = fb_face;
+	}
+
+	/* italic monospace face */
+	fb_face = fb_new_face(NULL,
+			      "monospace_italic.ttf",
+			      NETSURF_FB_FONT_MONOSPACE_ITALIC);
+	if (fb_face == NULL) {
+		fb_faces[FB_FACE_MONOSPACE_ITALIC] = fb_faces[FB_FACE_MONOSPACE];
+	} else {
+		fb_faces[FB_FACE_MONOSPACE_ITALIC] = fb_face;
+	}
+
+	/* bold italic monospace face */
+	fb_face = fb_new_face(NULL,
+			      "monospace_italic_bold.ttf",
+			      NETSURF_FB_FONT_MONOSPACE_ITALIC_BOLD);
+	if (fb_face == NULL) {
+		fb_faces[FB_FACE_MONOSPACE_ITALIC_BOLD] = fb_faces[FB_FACE_MONOSPACE_BOLD];
+	} else {
+		fb_faces[FB_FACE_MONOSPACE_ITALIC_BOLD] = fb_face;
 	}
 
 	/* cursive face */
@@ -349,18 +414,36 @@ static void fb_fill_scalar(const plot_font_style_t *fstyle, FTC_Scaler srec)
 	switch (fstyle->family) {
                                 
 	case PLOT_FONT_FAMILY_SERIF:
-		if (fstyle->weight >= BOLD_WEIGHT) {
-                        selected_face = FB_FACE_SERIF_BOLD;
+		if ((fstyle->flags & FONTF_ITALIC) ||
+		    (fstyle->flags & FONTF_OBLIQUE)) {
+			if (fstyle->weight >= BOLD_WEIGHT) {
+				selected_face = FB_FACE_SERIF_ITALIC_BOLD;
+			} else {
+				selected_face = FB_FACE_SERIF_ITALIC;
+			}
 		} else {
-                        selected_face = FB_FACE_SERIF;
+			if (fstyle->weight >= BOLD_WEIGHT) {
+				selected_face = FB_FACE_SERIF_BOLD;
+			} else {
+				selected_face = FB_FACE_SERIF;
+			}
                 }
 		break;
 
 	case PLOT_FONT_FAMILY_MONOSPACE:
-		if (fstyle->weight >= BOLD_WEIGHT) {
-			selected_face = FB_FACE_MONOSPACE_BOLD;
+		if ((fstyle->flags & FONTF_ITALIC) ||
+		    (fstyle->flags & FONTF_OBLIQUE)) {
+			if (fstyle->weight >= BOLD_WEIGHT) {
+				selected_face = FB_FACE_MONOSPACE_ITALIC_BOLD;
+			} else {
+				selected_face = FB_FACE_MONOSPACE_ITALIC;
+			}
 		} else {
-			selected_face = FB_FACE_MONOSPACE;
+			if (fstyle->weight >= BOLD_WEIGHT) {
+				selected_face = FB_FACE_MONOSPACE_BOLD;
+			} else {
+				selected_face = FB_FACE_MONOSPACE;
+			}
                 }
 		break;
 

@@ -21,8 +21,10 @@
  */
 
 #include <stddef.h>
+#ifndef NeXT
 #include <stdint.h>
 #include <stdbool.h>
+#endif
 
 #include "utils/log.h"
 #include "utils/errors.h"

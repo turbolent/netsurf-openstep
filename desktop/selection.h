@@ -23,7 +23,9 @@
 #ifndef NETSURF_DESKTOP_SELECTION_H_
 #define NETSURF_DESKTOP_SELECTION_H_
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include "netsurf/mouse.h"
 
 struct box;

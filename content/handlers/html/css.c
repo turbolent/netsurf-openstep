@@ -25,7 +25,11 @@
 
 #include <assert.h>
 #include <ctype.h>
+#ifdef NeXT
+#include <stdio.h>
+#else
 #include <stdint.h>
+#endif
 #include <string.h>
 #include <strings.h>
 #include <stdlib.h>
@@ -633,6 +637,9 @@ nserror html_css_new_stylesheets(html_content *c)
 
 	}
 
+#ifdef NeXT
+	c->stylesheets[STYLESHEET_USER].unused = true;
+#else
 	ns_error = hlcache_handle_retrieve(html_user_stylesheet_url, 0,
 			content_get_url(&c->base), NULL,
 			html_convert_css_callback, c, &child, CONTENT_CSS,
@@ -643,6 +650,7 @@ nserror html_css_new_stylesheets(html_content *c)
 
 	c->base.active++;
 	NSLOG(netsurf, INFO, "%d fetches active", c->base.active);
+#endif
 
 	return ns_error;
 }

@@ -38,7 +38,11 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#ifdef NeXT
+#include <sys/types.h>
+#else
 #include <sys/select.h>
+#endif
 
 #define ns_close_socket close
 

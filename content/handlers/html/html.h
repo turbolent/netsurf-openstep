@@ -26,7 +26,9 @@
 #ifndef NETSURF_HTML_HTML_H
 #define NETSURF_HTML_HTML_H
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 #include "netsurf/types.h"
 #include "netsurf/content_type.h"

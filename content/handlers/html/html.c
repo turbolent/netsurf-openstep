@@ -23,7 +23,11 @@
  */
 
 #include <assert.h>
+#ifdef NeXT
+#include <stdio.h>
+#else
 #include <stdint.h>
+#endif
 #include <string.h>
 #include <strings.h>
 #include <stdlib.h>

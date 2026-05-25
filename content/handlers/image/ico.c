@@ -21,7 +21,9 @@
  * implementation for image/ico content handler
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 #include <libnsbmp.h>
 

@@ -36,7 +36,10 @@
 
 /* Try to detect which features the target OS supports */
 
-#if (defined(_GNU_SOURCE) && \
+#if (defined(NeXT))
+#undef HAVE_STRNDUP
+char *strndup(const char *s, size_t n);
+#elif (defined(_GNU_SOURCE) && \
      !defined(__APPLE__) || \
      defined(__amigaos4__) || \
      defined(__HAIKU__) || \
@@ -96,7 +99,7 @@ char *strchrnul(const char *s, int c);
  * amigaos3 declares this but does not have it in its actual library
  */
 #define HAVE_STRTOULL
-#if !defined(__amigaos4__) && defined(__AMIGA__)
+#if (!defined(__amigaos4__) && defined(__AMIGA__)) || defined(NeXT)
 #undef HAVE_STRTOULL
 #endif
 
@@ -119,12 +122,12 @@ char *strchrnul(const char *s, int c);
 #endif
 
 #define HAVE_UTSNAME
-#if (defined(_WIN32))
+#if (defined(_WIN32) || defined(NeXT))
 #undef HAVE_UTSNAME
 #endif
 
 #define HAVE_REALPATH
-#if (defined(_WIN32))
+#if (defined(_WIN32) || defined(NeXT))
 #undef HAVE_REALPATH
 char *realpath(const char *path, char *resolved_path);
 #endif
@@ -145,7 +148,7 @@ char *realpath(const char *path, char *resolved_path);
 #endif
 
 #define HAVE_MMAP
-#if (defined(_WIN32) || defined(__riscos__) || defined(__HAIKU__) || defined(__BEOS__) || defined(__amigaos4__) || defined(__AMIGA__) || defined(__MINT__))
+#if (defined(_WIN32) || defined(__riscos__) || defined(__HAIKU__) || defined(__BEOS__) || defined(__amigaos4__) || defined(__AMIGA__) || defined(__MINT__) || defined(NeXT))
 #undef HAVE_MMAP
 #endif
 
@@ -158,14 +161,14 @@ char *realpath(const char *path, char *resolved_path);
 #define HAVE_DIRFD
 #define HAVE_UNLINKAT
 #define HAVE_FSTATAT
-#if (defined(_WIN32) || defined(__riscos__) || defined(__HAIKU__) || defined(__BEOS__) || defined(__amigaos4__) || defined(__AMIGA__) || defined(__MINT__))
+#if (defined(_WIN32) || defined(__riscos__) || defined(__HAIKU__) || defined(__BEOS__) || defined(__amigaos4__) || defined(__AMIGA__) || defined(__MINT__) || defined(NeXT))
 #undef HAVE_DIRFD
 #undef HAVE_UNLINKAT
 #undef HAVE_FSTATAT
 #endif
 
 #define HAVE_REGEX
-#if (defined(__serenity__))
+#if (defined(__serenity__) || defined(NeXT))
 #undef HAVE_REGEX
 #endif
 
@@ -187,7 +190,9 @@ char *realpath(const char *path, char *resolved_path);
     #define WITH_THEME_INSTALL
 #elif defined(__HAIKU__) || defined(__BEOS__)
     /* for intptr_t */
+    #ifndef NeXT
     #include <inttypes.h>
+    #endif
     #if defined(__HAIKU__)
         /*not yet: #define WITH_MMAP*/
     #endif

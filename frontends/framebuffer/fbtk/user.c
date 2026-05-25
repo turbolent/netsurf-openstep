@@ -19,7 +19,9 @@
  */
 
 #include <stdlib.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <libnsfb.h>
 
 #include "framebuffer/gui.h"

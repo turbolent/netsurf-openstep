@@ -26,8 +26,10 @@
  */
 
 #include <stdio.h>
+#ifndef NeXT
 #include <stdint.h>
 #include <stdbool.h>
+#endif
 
 #ifdef WITH_CURL
 #include <curl/curl.h>

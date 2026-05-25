@@ -25,7 +25,9 @@
 #ifndef NETSURF_BROWSER_WINDOW_H_
 #define NETSURF_BROWSER_WINDOW_H_
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdio.h>
 
 #include "utils/errors.h"

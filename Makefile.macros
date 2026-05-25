@@ -45,8 +45,10 @@ define feature_switch
       $$(info M.CONFIG: $(2)	enabled       (NETSURF_USE_$(1) := YES))
     endif
   else ifeq ($$(NETSURF_USE_$(1)),NO)
+    ifneq ($$(HOST),NeXT)
     CFLAGS += $(5)
     CXXFLAGS += $(5)
+    endif
     LDFLAGS += $(6)
     ifneq ($(MAKECMDGOALS),clean)
       $$(info M.CONFIG: $(2)	disabled      (NETSURF_USE_$(1) := NO))
@@ -186,7 +188,22 @@ endef
 # 1 = Source file
 # 2 = obj filename, no prefix
 # 3 = dep filename, no prefix
-ifeq ($(CC_MAJOR),2)
+ifneq ($(filter $(HOST),NeXT),)
+# NeXT/OpenStep GCC 3.0.4 accepts enough C for this build, but its driver
+# rejects the newer dependency-generation flags used below.
+define compile_target_c
+$$(OBJROOT)/$(2): $(1) $$(OBJROOT)/created $$(DEPROOT)/created
+	$$(VQ)echo "     DEP: $(1)"
+	$$(Q)$$(RM) $$(DEPROOT)/$(3)
+	$$(Q)$$(CC) $$(IFLAGS) $$(CFLAGS) -MM  \
+		    $(1) | sed 's,^.*:,$$(DEPROOT)/$(3) $$(OBJROOT)/$(2):,' \
+		    > $$(DEPROOT)/$(3)
+	$$(VQ)echo " COMPILE: $(1)"
+	$$(Q)$$(RM) $$(OBJROOT)/$(2)
+	$$(Q)$$(CC) $$(COMMON_WARNFLAGS) $$(CWARNFLAGS) $$(IFLAGS) $$(CFLAGS) $(CFLAGS_ENV) -o $$(OBJROOT)/$(2) -c $(1)
+
+endef
+else ifeq ($(CC_MAJOR),2)
 # simpler deps tracking for gcc2...
 define compile_target_c
 $$(OBJROOT)/$(2): $(1) $$(OBJROOT)/created $$(DEPROOT)/created
@@ -229,6 +246,24 @@ $$(OBJROOT)/$(2): $(1) $$(OBJROOT)/created $$(DEPROOT)/created
 	$$(VQ)echo " COMPILE: $(1)"
 	$$(Q)$$(RM) $$(OBJROOT)/$(2)
 	$$(Q)$$(CXX) $$(COMMON_WARNFLAGS) $$(CXXWARNFLAGS) $$(IFLAGS) $$(CXXFLAGS) $(CXXFLAGS_ENV) -o $$(OBJROOT)/$(2) -c $(1)
+
+endef
+
+# Rule generator to compile Objective-C files
+#
+# 1 = Source file
+# 2 = obj filename, no prefix
+# 3 = dep filename, no prefix
+define compile_target_m
+$$(OBJROOT)/$(2): $(1) $$(OBJROOT)/created $$(DEPROOT)/created $$(FRAMEWORK_INCLUDE_CREATED)
+	$$(VQ)echo "     DEP: $(1)"
+	$$(Q)$$(RM) $$(DEPROOT)/$(3)
+	$$(Q)$$(OBJC_CC) $$(IFLAGS) $$(OBJCFLAGS) -MM  \
+		    $(1) | sed 's,^.*:,$$(DEPROOT)/$(3) $$(OBJROOT)/$(2):,' \
+		    > $$(DEPROOT)/$(3)
+	$$(VQ)echo " OBJC: $(1)"
+	$$(Q)$$(RM) $$(OBJROOT)/$(2)
+	$$(Q)$$(OBJC_CC) $$(OBJC_WARNFLAGS) $$(IFLAGS) $$(OBJCFLAGS) -o $$(OBJROOT)/$(2) -c $(1)
 
 endef
 

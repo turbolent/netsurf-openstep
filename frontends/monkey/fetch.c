@@ -19,7 +19,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <limits.h>
 
 #include "utils/errors.h"

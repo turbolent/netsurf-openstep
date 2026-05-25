@@ -36,7 +36,9 @@
 
 #include <assert.h>
 #include <limits.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -69,6 +71,37 @@
 #include "html/layout.h"
 #include "html/layout_internal.h"
 #include "html/table.h"
+
+#define LAYOUT_WIDTH_MAX (UNKNOWN_MAX_WIDTH - 1)
+
+static int layout_width_add_clamped(int a, int b)
+{
+	if (a < 0 || b < 0) {
+		return LAYOUT_WIDTH_MAX;
+	}
+	if (a > LAYOUT_WIDTH_MAX - b) {
+		return LAYOUT_WIDTH_MAX;
+	}
+	return a + b;
+}
+
+static int layout_width_divide_float_clamped(int value, float divisor)
+{
+	double result;
+
+	if (value <= 0) {
+		return 0;
+	}
+	if (divisor <= 0.0f) {
+		return LAYOUT_WIDTH_MAX;
+	}
+
+	result = (double)value / (double)divisor;
+	if (result >= (double)LAYOUT_WIDTH_MAX) {
+		return LAYOUT_WIDTH_MAX;
+	}
+	return (int)result;
+}
 
 /** Array of per-side access functions for computed style margins. */
 const css_len_func margin_funcs[4] = {
@@ -237,7 +270,7 @@ static int layout_text_indent(
 	css_computed_text_indent(style, &value, &unit);
 
 	if (unit == CSS_UNIT_PCT) {
-		return FPCT_OF_INT_TOINT(value, width);
+		return ns_css_pct_to_int(value, width);
 	} else {
 		return FIXTOINT(css_unit_len2device_px(style, unit_len_ctx,
 				value, unit));
@@ -400,7 +433,7 @@ static void layout_minmax_table(struct box *table,
 	}
 
 	/* fixed width takes priority, unless it is too narrow */
-	if (css_computed_width_px(table->style, &content->unit_len_ctx,
+	if (ns_computed_width_px(table->style, &content->unit_len_ctx,
 			-1, &width) == CSS_WIDTH_SET) {
 		if (table_min < width)
 			table_min = width;
@@ -666,7 +699,7 @@ layout_minmax_line(struct box *first,
 		bs = css_computed_box_sizing(block->style);
 
 		/* calculate box width */
-		wtype = css_computed_width_px(b->style,
+		wtype = ns_computed_width_px(b->style,
 				&content->unit_len_ctx, -1, &width);
 		if (wtype == CSS_WIDTH_SET) {
 			if (bs == CSS_BOX_SIZING_BORDER_BOX) {
@@ -1005,12 +1038,16 @@ static void layout_minmax_block(
 				if (block->style != NULL &&
 				    css_computed_flex_wrap(block->style) ==
 						CSS_FLEX_WRAP_NOWRAP) {
-					min += child->min_width;
+					min = layout_width_add_clamped(
+							min,
+							child->min_width);
 				} else {
 					if (min < child->min_width)
 						min = child->min_width;
 				}
-				max += child->max_width;
+				max = layout_width_add_clamped(
+						max,
+						child->max_width);
 
 			} else {
 				if (min < child->min_width)
@@ -1038,7 +1075,7 @@ static void layout_minmax_block(
 		css_fixed value = 0;
 		int width;
 
-		if (css_computed_width_px(block->style, &content->unit_len_ctx,
+		if (ns_computed_width_px(block->style, &content->unit_len_ctx,
 				-1, &width) == CSS_WIDTH_SET) {
 			min = max = width;
 			using_max_border_box = border_box;
@@ -1111,12 +1148,16 @@ static void layout_minmax_block(
 			(css_computed_float(block->style) == CSS_FLOAT_LEFT ||
 			css_computed_float(block->style) == CSS_FLOAT_RIGHT)) {
 		/* floated boxs */
-		block->min_width = min + extra_fixed;
-		block->max_width = max + extra_fixed;
+		block->min_width = layout_width_add_clamped(min, extra_fixed);
+		block->max_width = layout_width_add_clamped(max, extra_fixed);
 	} else {
 		/* not floated */
-		block->min_width = (min + extra_fixed) / (1.0 - extra_frac);
-		block->max_width = (max + extra_fixed) / (1.0 - extra_frac);
+		block->min_width = layout_width_divide_float_clamped(
+				layout_width_add_clamped(min, extra_fixed),
+				1.0 - extra_frac);
+		block->max_width = layout_width_divide_float_clamped(
+				layout_width_add_clamped(max, extra_fixed),
+				1.0 - extra_frac);
 	}
 
 	assert(0 <= block->min_width);
@@ -1693,7 +1734,7 @@ bool layout_table(
 	}
 
 	/* find specified table width, or available width if auto-width */
-	if (css_computed_width_px(style, &content->unit_len_ctx,
+	if (ns_computed_width_px(style, &content->unit_len_ctx,
 			available_width, &table_width) == CSS_WIDTH_SET) {
 		/* specified width includes border */
 		table_width -= table->border[LEFT].width +
@@ -1764,7 +1805,7 @@ bool layout_table(
 				/* Table is absolutely positioned or its
 				 * containing block has a valid specified
 				 * height. (CSS 2.1 Section 10.5) */
-				min_height = FPCT_OF_INT_TOINT(value,
+				min_height = ns_css_pct_to_int(value,
 						containing_block->height);
 			}
 		} else {
@@ -2209,7 +2250,7 @@ static bool layout_apply_minmax_height(
 					 * containing block has a valid
 					 * specified height. (CSS 2.1
 					 * Section 10.5) */
-					h = FPCT_OF_INT_TOINT(value,
+					h = ns_css_pct_to_int(value,
 						containing_block->height);
 					if (h < box->height) {
 						box->height = h;
@@ -2240,7 +2281,7 @@ static bool layout_apply_minmax_height(
 					 * containing block has a valid
 					 * specified height. (CSS 2.1
 					 * Section 10.5) */
-					h = FPCT_OF_INT_TOINT(value,
+					h = ns_css_pct_to_int(value,
 						containing_block->height);
 					if (h > box->height) {
 						box->height = h;
@@ -4486,7 +4527,7 @@ layout_compute_offsets(const css_unit_ctx *unit_len_ctx,
 	type = css_computed_left(box->style, &value, &unit);
 	if (type == CSS_LEFT_SET) {
 		if (unit == CSS_UNIT_PCT) {
-			*left = FPCT_OF_INT_TOINT(value,
+			*left = ns_css_pct_to_int(value,
 					containing_block->width);
 		} else {
 			*left = FIXTOINT(css_unit_len2device_px(
@@ -4501,7 +4542,7 @@ layout_compute_offsets(const css_unit_ctx *unit_len_ctx,
 	type = css_computed_right(box->style, &value, &unit);
 	if (type == CSS_RIGHT_SET) {
 		if (unit == CSS_UNIT_PCT) {
-			*right = FPCT_OF_INT_TOINT(value,
+			*right = ns_css_pct_to_int(value,
 					containing_block->width);
 		} else {
 			*right = FIXTOINT(css_unit_len2device_px(
@@ -4516,7 +4557,7 @@ layout_compute_offsets(const css_unit_ctx *unit_len_ctx,
 	type = css_computed_top(box->style, &value, &unit);
 	if (type == CSS_TOP_SET) {
 		if (unit == CSS_UNIT_PCT) {
-			*top = FPCT_OF_INT_TOINT(value,
+			*top = ns_css_pct_to_int(value,
 					containing_block->height);
 		} else {
 			*top = FIXTOINT(css_unit_len2device_px(
@@ -4531,7 +4572,7 @@ layout_compute_offsets(const css_unit_ctx *unit_len_ctx,
 	type = css_computed_bottom(box->style, &value, &unit);
 	if (type == CSS_BOTTOM_SET) {
 		if (unit == CSS_UNIT_PCT) {
-			*bottom = FPCT_OF_INT_TOINT(value,
+			*bottom = ns_css_pct_to_int(value,
 					containing_block->height);
 		} else {
 			*bottom = FIXTOINT(css_unit_len2device_px(

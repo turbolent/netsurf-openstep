@@ -24,8 +24,10 @@
 #ifndef NETSURF_DESKTOP_PAGE_INFO_H
 #define NETSURF_DESKTOP_PAGE_INFO_H
 
+#ifndef NeXT
 #include <stdint.h>
 #include <stdbool.h>
+#endif
 
 #include "utils/errors.h"
 #include "netsurf/mouse.h"

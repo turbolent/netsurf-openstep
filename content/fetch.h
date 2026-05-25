@@ -23,7 +23,9 @@
 #ifndef _NETSURF_DESKTOP_FETCH_H_
 #define _NETSURF_DESKTOP_FETCH_H_
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 #include "utils/config.h"
 #include "utils/nsurl.h"

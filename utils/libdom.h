@@ -24,7 +24,9 @@
 #ifndef NETSURF_UTILS_LIBDOM_H_
 #define NETSURF_UTILS_LIBDOM_H_
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdio.h>
 
 #include <dom/dom.h>

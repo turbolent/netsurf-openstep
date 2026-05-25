@@ -23,7 +23,9 @@
  * Single/Multi-line UTF-8 text area implementation.
  */
 
+#ifndef NeXT
 #include <stdint.h>
+#endif
 #include <string.h>
 
 #include "utils/log.h"

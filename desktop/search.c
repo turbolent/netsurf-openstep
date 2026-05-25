@@ -23,7 +23,9 @@
  * Free text search (core)
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 #include "utils/errors.h"
 #include "content/textsearch.h"

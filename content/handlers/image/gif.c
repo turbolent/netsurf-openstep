@@ -32,7 +32,9 @@
 
 #include <assert.h>
 #include <string.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 
 #include <nsutils/assert.h>

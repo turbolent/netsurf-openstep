@@ -21,7 +21,9 @@
 #define NETSURF_LOG_H
 
 #include <stdio.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 #include "utils/errors.h"
 

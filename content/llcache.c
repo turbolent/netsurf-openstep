@@ -32,7 +32,9 @@
  */
 
 #include <stdlib.h>
+#ifndef NeXT
 #include <stdint.h>
+#endif
 #include <string.h>
 #include <strings.h>
 #include <nsutils/time.h>

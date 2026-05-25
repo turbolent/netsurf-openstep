@@ -19,7 +19,9 @@
  */
 
 #include <stdio.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 #include <string.h>
 
@@ -319,6 +321,10 @@ framebuffer_plot_bitmap(const struct redraw_context *ctx,
 	enum nsfb_format_e bmformat;
 	unsigned char *bmptr;
 	nsfb_t *bm = (nsfb_t *)bitmap;
+
+	if (width <= 0 || height <= 0) {
+		return NSERROR_OK;
+	}
 
 	/* x and y define coordinate of top left of of the initial explicitly
 	 * placed tile. The width and height are the image scaling and the

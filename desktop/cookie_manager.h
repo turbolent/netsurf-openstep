@@ -23,8 +23,10 @@
 #ifndef _NETSURF_DESKTOP_COOKIE_MANAGER_H_
 #define _NETSURF_DESKTOP_COOKIE_MANAGER_H_
 
+#ifndef NeXT
 #include <stdbool.h>
 #include <stdint.h>
+#endif
 
 #include "utils/errors.h"
 #include "netsurf/mouse.h"

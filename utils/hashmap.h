@@ -19,8 +19,10 @@
 #ifndef NETSURF_HASHMAP_H
 #define NETSURF_HASHMAP_H
 
+#ifndef NeXT
 #include <stdint.h>
 #include <stdbool.h>
+#endif
 
 /**
  * Generic hashmap.

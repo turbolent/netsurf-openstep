@@ -21,7 +21,9 @@
   */
 
 #include <assert.h>
+#ifndef NeXT
 #include <stdint.h>
+#endif
 #include <string.h>
 #include <stdlib.h>
 

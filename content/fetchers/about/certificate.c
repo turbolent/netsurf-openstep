@@ -21,7 +21,9 @@
  * content generator for the about scheme certificate page
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -131,8 +133,16 @@ static nserror free_ns_cert_info(struct ns_cert_info *cinfo)
 
 #ifdef WITH_OPENSSL
 
+#ifdef NeXT
+#define NETSURF_OPENSSL_RESTORE_NEXT 1
+#undef NeXT
+#endif
 #include <openssl/ssl.h>
 #include <openssl/x509v3.h>
+#ifdef NETSURF_OPENSSL_RESTORE_NEXT
+#define NeXT 1
+#undef NETSURF_OPENSSL_RESTORE_NEXT
+#endif
 
 #if (OPENSSL_VERSION_NUMBER < 0x30000000L)
 /* OpenSSL 1.1.1 or LibreSSL */

@@ -25,7 +25,9 @@
  */
 
 #include <assert.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <string.h>
 
 #include <dom/dom.h>
@@ -1233,7 +1235,7 @@ default_mouse_action(html_content *html,
 				       &pixel_offset);
 
 		if (selection_click(html->sel,
-				    html->bw,
+				    bw,
 				    mouse,
 				    mas->text.box->byte_offset + idx)) {
 			/* key presses must be directed at the
@@ -1290,7 +1292,9 @@ default_mouse_action(html_content *html,
 			content_broadcast(c, CONTENT_MSG_DRAGSAVE, &msg_data);
 		} else {
 			if (mas->drag_candidate == NULL) {
+#ifndef NeXT
 				browser_window_page_drag_start(bw, x, y);
+#endif
 			} else {
 				html_box_drag_start(mas->drag_candidate, x, y);
 			}
@@ -1304,7 +1308,9 @@ default_mouse_action(html_content *html,
 			content_broadcast(c, CONTENT_MSG_DRAGSAVE, &msg_data);
 		} else {
 			if (mas->drag_candidate == NULL) {
+#ifndef NeXT
 				browser_window_page_drag_start(bw, x, y);
+#endif
 			} else {
 				html_box_drag_start(mas->drag_candidate, x, y);
 			}
@@ -1527,10 +1533,14 @@ html_mouse_action(struct content *c,
  * \param  key	The UCS4 character codepoint
  * \return true if key handled, false otherwise
  */
-bool html_keypress(struct content *c, uint32_t key)
+bool html_keypress(struct content *c, struct browser_window *bw, uint32_t key)
 {
 	html_content *html = (html_content *) c;
 	struct selection *sel = html->sel;
+
+	if (html->bw == NULL && bw != NULL) {
+		html->bw = bw;
+	}
 
 	/** \todo
 	 * At the moment, the front end interface for keypress only gives
@@ -1570,7 +1580,7 @@ bool html_keypress(struct content *c, uint32_t key)
 
 	switch (html->focus_type) {
 	case HTML_FOCUS_CONTENT:
-		return content_keypress(html->focus_owner.content->object, key);
+		return content_keypress(html->focus_owner.content->object, bw, key);
 
 	case HTML_FOCUS_TEXTAREA:
 		if (box_textarea_keypress(html, html->focus_owner.textarea, key) == NSERROR_OK) {

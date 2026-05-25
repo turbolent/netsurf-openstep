@@ -22,7 +22,9 @@
  */
 
 #include <stdlib.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <string.h>
 #include <strings.h>
 #include <stdio.h>

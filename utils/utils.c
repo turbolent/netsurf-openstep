@@ -26,7 +26,9 @@
 #include <strings.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#ifndef NeXT
 #include <unistd.h>
+#endif
 
 #include "utils/messages.h"
 #include "utils/dirent.h"

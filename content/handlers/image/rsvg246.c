@@ -29,7 +29,9 @@
  */
 
 #include <stdlib.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <assert.h>
 #include <string.h>
 #include <sys/types.h>

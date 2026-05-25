@@ -20,11 +20,40 @@
 #define NETSURF_CSS_UTILS_H_
 
 #include <libcss/libcss.h>
+#include <libcss/unit.h>
 
 #include "netsurf/css.h"
 
 /** DPI of the screen, in fixed point units */
 extern css_fixed nscss_screen_dpi;
+
+static inline int ns_css_pct_to_int(css_fixed percent, int value)
+{
+	return (int)(((long long)percent * value) / (100LL << CSS_RADIX_POINT));
+}
+
+static inline uint8_t ns_computed_width_px(
+		const css_computed_style *style,
+		const css_unit_ctx *unit_len_ctx,
+		int available_width,
+		int *width)
+{
+	css_fixed length = 0;
+	css_unit unit = CSS_UNIT_PX;
+	uint8_t type;
+
+	type = css_computed_width(style, &length, &unit);
+	if (type == CSS_WIDTH_SET && width != NULL) {
+		if (unit == CSS_UNIT_PCT) {
+			*width = ns_css_pct_to_int(length, available_width);
+		} else {
+			*width = FIXTOINT(css_unit_len2device_px(
+					style, unit_len_ctx, length, unit));
+		}
+	}
+
+	return type;
+}
 
 /**
  * Temporary helper wrappers for for libcss computed style getter, while

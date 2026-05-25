@@ -24,8 +24,9 @@
 #ifndef NETSURF_PLOT_STYLE_H
 #define NETSURF_PLOT_STYLE_H
 
+#ifndef NeXT
 #include <stdint.h>
-#include <stdint.h>
+#endif
 #include <libwapcaplet/libwapcaplet.h>
 #include "netsurf/types.h"
 
@@ -240,9 +241,9 @@ static inline colour colour_engorge_component(
 		enum plot_colour_component comp)
 {
 	static const colour msk[PLOT_COLOUR_COMPONENT_ALPHA] = {
-		[PLOT_COLOUR_COMPONENT_RED]   = 0x0000ff,
-		[PLOT_COLOUR_COMPONENT_GREEN] = 0x00ff00,
-		[PLOT_COLOUR_COMPONENT_BLUE]  = 0xff0000,
+		0x0000ff,
+		0x00ff00,
+		0xff0000,
 	};
 	colour d = dark ? darken_colour(col) : double_darken_colour(col);
 	colour l = dark ? double_lighten_colour(col) : lighten_colour(col);

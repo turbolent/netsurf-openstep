@@ -35,6 +35,9 @@ STRIP?=strip
 INSTALL?=install
 # Override this only if the host compiler is called something different
 BUILD_CC := cc
+OBJC_CC ?= $(CC)
+LINK_CC ?= $(CC)
+FRAMEWORK_INCLUDE_CREATED :=
 
 # target specific tool overrides
 include frontends/$(TARGET)/Makefile.tools

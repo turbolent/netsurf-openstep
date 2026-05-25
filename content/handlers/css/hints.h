@@ -19,7 +19,9 @@
 #ifndef NETSURF_CSS_HINTS_H_
 #define NETSURF_CSS_HINTS_H_
 
+#ifndef NeXT
 #include <stdint.h>
+#endif
 
 #include <libcss/libcss.h>
 

@@ -23,8 +23,10 @@
 #ifndef _NETSURF_UTILS_UTF8_H_
 #define _NETSURF_UTILS_UTF8_H_
 
+#ifndef NeXT
 #include <stdbool.h>
 #include <stdint.h>
+#endif
 
 #include "utils/errors.h"
 

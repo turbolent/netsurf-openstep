@@ -32,7 +32,9 @@
 #ifndef NETSURF_DESKTOP_PRINT_H
 #define NETSURF_DESKTOP_PRINT_H
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <libcss/libcss.h>
 
 struct hlcache_handle;

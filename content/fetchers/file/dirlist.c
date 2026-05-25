@@ -20,7 +20,9 @@
  * Generate HTML content for displaying directory listings (implementation).
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>

@@ -16,12 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef NeXT
 #include <stdint.h>
+#endif
 #include <limits.h>
 #include <getopt.h>
 #include <assert.h>
 #include <string.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 #include <nsutils/time.h>
 

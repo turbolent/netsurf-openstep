@@ -22,4 +22,8 @@ S_UTILS := \
 	utf8.c \
 	utils.c
 
+ifeq ($(HOST),NeXT)
+S_UTILS += openstep_compat.c
+endif
+
 S_UTILS := $(addprefix utils/,$(S_UTILS))

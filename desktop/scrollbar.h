@@ -26,7 +26,9 @@
 #ifndef NETSURF_DESKTOP_SCROLLBAR_H
 #define NETSURF_DESKTOP_SCROLLBAR_H
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <limits.h>
 
 #define SCROLLBAR_WIDTH 16

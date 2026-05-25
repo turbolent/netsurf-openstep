@@ -22,7 +22,7 @@
 
 #include "utils/config.h"
 
-#ifndef HAVE_STRPTIME
+#if !defined(HAVE_STRPTIME) || defined(NeXT)
 #undef DUK_USE_DATE_PRS_STRPTIME
 #undef DUK_USE_DATE_PRS_GETDATE
 #undef DUK_USE_DATE_PARSE_STRING

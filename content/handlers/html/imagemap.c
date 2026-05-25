@@ -24,7 +24,9 @@
  */
 
 #include <assert.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <string.h>
 #include <strings.h>
 

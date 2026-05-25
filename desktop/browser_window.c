@@ -1938,10 +1938,16 @@ browser_window_set_scale_internal(struct browser_window *bw, float scale)
 {
 	int i;
 	nserror res = NSERROR_OK;
+	float delta;
 
 	/* do not apply tiny changes in scale */
-	if (fabs(bw->scale - scale) < 0.0001)
+	delta = bw->scale - scale;
+	if (delta < 0.0f) {
+		delta = -delta;
+	}
+	if (delta < 0.0001f) {
 		return res;
+	}
 
 	bw->scale = scale;
 

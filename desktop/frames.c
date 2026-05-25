@@ -22,8 +22,10 @@
 
 #include <assert.h>
 #include <limits.h>
+#ifndef NeXT
 #include <stdbool.h>
 #include <stdint.h>
+#endif
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>

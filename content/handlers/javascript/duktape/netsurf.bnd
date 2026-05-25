@@ -33,6 +33,11 @@ binding duk_libdom {
 
 #include "javascript/duktape/duktape.h"
 
+#ifdef NeXT
+#define NSGENBIND_HIDE_ATTRIBUTE 1
+#define __attribute__(x)
+#endif
+
 struct browser_window;
 struct html_content;
 struct dom_node;
@@ -49,6 +54,11 @@ struct dom_html_br_element;
 %};
 
 	prologue %{
+#ifdef NSGENBIND_HIDE_ATTRIBUTE
+#undef __attribute__
+#undef NSGENBIND_HIDE_ATTRIBUTE
+#endif
+
 #include "javascript/duktape/dukky.h"
 %};
 

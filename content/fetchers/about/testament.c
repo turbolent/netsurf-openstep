@@ -21,7 +21,9 @@
  * content generator for the about scheme testament page
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stddef.h>
 
 #include "utils/errors.h"

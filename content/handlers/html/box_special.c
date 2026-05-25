@@ -27,7 +27,9 @@
  */
 
 #include <string.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <dom/dom.h>
 
 #include "utils/nsoption.h"

@@ -793,8 +793,9 @@ textplain_mouse_track(struct content *c,
  * \param  key	The UCS4 character codepoint
  * \return true if key handled, false otherwise
  */
-static bool textplain_keypress(struct content *c, uint32_t key)
+static bool textplain_keypress(struct content *c, struct browser_window *bw, uint32_t key)
 {
+	(void)bw;
 	textplain_content *text = (textplain_content *) c;
 	struct selection *sel = text->sel;
 

@@ -29,7 +29,9 @@
 #include <assert.h>
 #include <errno.h>
 #include <stdio.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <string.h>
 #include <zlib.h>
 #include <stdarg.h>

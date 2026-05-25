@@ -36,7 +36,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
+#ifndef NeXT
 #include <inttypes.h>
+#endif
 
 #include "utils/ascii.h"
 #include "utils/corestrings.h"

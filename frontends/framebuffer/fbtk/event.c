@@ -19,9 +19,13 @@
  */
 
 #include <sys/types.h>
+#ifndef NeXT
 #include <stdint.h>
+#endif
 #include <string.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 #include <libnsfb.h>
 #include <libnsfb_plot.h>

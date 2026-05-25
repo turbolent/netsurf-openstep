@@ -18,7 +18,9 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#ifndef NeXT
 #include <stdint.h>
+#endif
 #include <string.h>
 
 #include "utils/ring.h"

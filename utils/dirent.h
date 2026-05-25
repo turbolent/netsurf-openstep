@@ -33,7 +33,12 @@
 
 #include "utils/config.h"
 
+#ifdef NeXT
+#include <sys/dir.h>
+#include <sys/dirent.h>
+#else
 #include <dirent.h>
+#endif
 
 #ifndef HAVE_SCANDIR
 

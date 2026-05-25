@@ -23,7 +23,9 @@
 
 #include <assert.h>
 #include <stddef.h>
+#ifndef NeXT
 #include <stdint.h>
+#endif
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>

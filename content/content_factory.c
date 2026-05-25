@@ -23,6 +23,9 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#ifdef NeXT
+#include <stdio.h>
+#endif
 #include <string.h>
 
 #include "utils/http.h"
@@ -186,17 +189,20 @@ struct content *content_factory_create_content(llcache_handle *llcache,
 	content_type_header = 
 			llcache_handle_get_header(llcache, "Content-Type");
 	if (content_type_header != NULL) {
+#ifndef NeXT
 		/* We don't care if this fails */
 		http_parse_content_type(content_type_header, &ct);
+#endif
 	}
 
-	error = handler->create(handler, effective_type, 
+	error = handler->create(handler, effective_type,
 			ct != NULL ? ct->parameters : NULL, 
 			llcache, fallback_charset, quirks, 
 			&c);
 
-	if (ct != NULL)
+	if (ct != NULL) {
 		http_content_type_destroy(ct);
+	}
 
 	if (error != NSERROR_OK)
 		return NULL;

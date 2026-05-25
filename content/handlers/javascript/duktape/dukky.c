@@ -24,7 +24,9 @@
  * Duktapeish implementation of javascript engine functions.
  */
 
+#ifndef NeXT
 #include <stdint.h>
+#endif
 #include <nsutils/time.h>
 
 #include "netsurf/inttypes.h"

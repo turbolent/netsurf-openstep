@@ -17,4 +17,8 @@ S_BROWSER := bitmap.c browser.c browser_window.c browser_history.c \
 	save_complete.c save_text.c selection.c textinput.c gui_factory.c \
 	save_pdf.c font_haru.c
 
+ifeq ($(HOST),NeXT)
+S_BROWSER := $(filter-out save_complete.c,$(S_BROWSER))
+endif
+
 S_BROWSER := $(addprefix desktop/,$(S_BROWSER))

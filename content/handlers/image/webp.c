@@ -24,7 +24,9 @@
  * Image cache handling is performed by the generic NetSurf handler.
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 #include <setjmp.h>
 

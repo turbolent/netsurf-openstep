@@ -23,6 +23,9 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#ifdef NeXT
+#include <stdio.h>
+#endif
 #include <string.h>
 
 #include "utils/http.h"
@@ -464,8 +467,9 @@ hlcache_llcache_callback(llcache_handle *handle,
 
 		/* No need to report that we need data:
 		 * we'll get some anyway if there is any */
-		if (error == NSERROR_NEED_DATA)
+		if (error == NSERROR_NEED_DATA) {
 			error = NSERROR_OK;
+		}
 
 		return error;
 

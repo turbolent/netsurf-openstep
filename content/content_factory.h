@@ -19,7 +19,9 @@
 #ifndef NETSURF_CONTENT_CONTENT_FACTORY_H_
 #define NETSURF_CONTENT_CONTENT_FACTORY_H_
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 #include <libwapcaplet/libwapcaplet.h>
 

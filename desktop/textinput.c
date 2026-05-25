@@ -116,6 +116,6 @@ bool browser_window_key_press(struct browser_window *bw, uint32_t key)
 	if (focus->current_content == NULL)
 		return false;
 
-	return content_keypress(focus->current_content, key);
+	return content_keypress(focus->current_content, focus, key);
 }
 

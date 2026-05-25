@@ -24,8 +24,10 @@
 #ifndef _NETSURF_DESKTOP_TREEVIEW_H_
 #define _NETSURF_DESKTOP_TREEVIEW_H_
 
+#ifndef NeXT
 #include <stdbool.h>
 #include <stdint.h>
+#endif
 #include <libwapcaplet/libwapcaplet.h>
 
 #include "netsurf/mouse.h"

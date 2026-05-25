@@ -31,14 +31,18 @@
  */
 
 #include <stdio.h>
+#ifndef NeXT
 #include <stdbool.h>
 #include <stdint.h>
+#endif
 #include <string.h>
 #include <strings.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#ifndef NeXT
 #include <unistd.h>
+#endif
 
 #include "utils/log.h"
 #include "utils/ascii.h"

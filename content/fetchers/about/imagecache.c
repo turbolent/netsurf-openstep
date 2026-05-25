@@ -21,7 +21,9 @@
  * content generator for the about scheme imagecache page
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdio.h>
 
 #include "netsurf/types.h"

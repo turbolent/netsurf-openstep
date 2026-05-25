@@ -44,8 +44,10 @@
 #define _NETSURF_UTILS_NSOPTION_H_
 
 #include <stdio.h>
+#ifndef NeXT
 #include <stdint.h>
 #include <stdbool.h>
+#endif
 
 #include "utils/errors.h"
 

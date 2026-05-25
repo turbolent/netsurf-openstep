@@ -24,7 +24,9 @@
 #ifndef _NETSURF_PLOTTERS_H_
 #define _NETSURF_PLOTTERS_H_
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdio.h>
 
 #include "netsurf/plot_style.h"

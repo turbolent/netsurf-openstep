@@ -19,7 +19,9 @@
 #ifndef NETSURF_FB_FBTK_WIDGET_H
 #define NETSURF_FB_FBTK_WIDGET_H
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 enum fbtk_widgettype_e {
 	FB_WIDGET_TYPE_ROOT = 0,

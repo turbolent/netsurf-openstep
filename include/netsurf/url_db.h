@@ -24,7 +24,9 @@
 #ifndef _NETSURF_URL_DB_H_
 #define _NETSURF_URL_DB_H_
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <time.h>
 
 #include "utils/errors.h"

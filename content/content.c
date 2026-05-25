@@ -21,7 +21,9 @@
  * Content handling implementation.
  */
 
+#ifndef NeXT
 #include <stdint.h>
+#endif
 #include <stdlib.h>
 #include <string.h>
 #include <nsutils/time.h>
@@ -101,7 +103,7 @@ static void content_convert(struct content *c)
  * \return NSERROR_OK on success, appropriate error otherwise
  */
 static nserror
-content_llcache_callback(llcache_handle *llcache,
+content_llcache_callback(struct llcache_handle *llcache,
 			 const llcache_event *event, void *pw)
 {
 	struct content *c = pw;
@@ -188,10 +190,10 @@ static void content_update_status(struct content *c)
 /* exported interface documented in content/protected.h */
 nserror
 content__init(struct content *c,
-	      const content_handler *handler,
+	      const struct content_handler *handler,
 	      lwc_string *imime_type,
 	      const struct http_parameter *params,
-	      llcache_handle *llcache,
+	      struct llcache_handle *llcache,
 	      const char *fallback_charset,
 	      bool quirks)
 {
@@ -255,7 +257,7 @@ content__init(struct content *c,
 
 
 /* exported interface documented in content/content.h */
-bool content_can_reformat(hlcache_handle *h)
+bool content_can_reformat(struct hlcache_handle *h)
 {
 	struct content *c = hlcache_handle_get_content(h);
 
@@ -318,7 +320,7 @@ void content_set_error(struct content *c)
 
 
 /* exported interface documented in content/content.h */
-void content_reformat(hlcache_handle *h, bool background,
+void content_reformat(struct hlcache_handle *h, bool background,
 		      int width, int height)
 {
 	content__reformat(hlcache_handle_get_content(h), background,
@@ -395,7 +397,7 @@ void content_destroy(struct content *c)
 
 /* exported interface documented in content/content.h */
 void
-content_mouse_track(hlcache_handle *h,
+content_mouse_track(struct hlcache_handle *h,
 		    struct browser_window *bw,
 		    browser_mouse_state mouse,
 		    int x, int y)
@@ -418,7 +420,7 @@ content_mouse_track(hlcache_handle *h,
 
 /* exported interface documented in content/content.h */
 void
-content_mouse_action(hlcache_handle *h,
+content_mouse_action(struct hlcache_handle *h,
 		     struct browser_window *bw,
 		     browser_mouse_state mouse,
 		     int x, int y)
@@ -434,13 +436,13 @@ content_mouse_action(hlcache_handle *h,
 
 
 /* exported interface documented in content/content.h */
-bool content_keypress(struct hlcache_handle *h, uint32_t key)
+bool content_keypress(struct hlcache_handle *h, struct browser_window *bw, uint32_t key)
 {
 	struct content *c = hlcache_handle_get_content(h);
 	assert(c != NULL);
 
 	if (c->handler->keypress != NULL)
-		return c->handler->keypress(c, key);
+		return c->handler->keypress(c, bw, key);
 
 	return false;
 }
@@ -555,7 +557,7 @@ bool content_saw_insecure_objects(struct hlcache_handle *h)
 
 /* exported interface, documented in content/content.h */
 bool
-content_redraw(hlcache_handle *h,
+content_redraw(struct hlcache_handle *h,
 	       struct content_redraw_data *data,
 	       const struct rect *clip,
 	       const struct redraw_context *ctx)
@@ -788,7 +790,7 @@ content_broadcast_error(struct content *c, nserror errorcode, const char *msg)
 
 /* exported interface, documented in content/content.h */
 nserror
-content_open(hlcache_handle *h,
+content_open(struct hlcache_handle *h,
 	     struct browser_window *bw,
 	     struct content *page,
 	     struct object_params *params)
@@ -810,7 +812,7 @@ content_open(hlcache_handle *h,
 
 
 /* exported interface, documented in content/content.h */
-nserror content_close(hlcache_handle *h)
+nserror content_close(struct hlcache_handle *h)
 {
 	struct content *c;
 	nserror res;
@@ -844,7 +846,7 @@ nserror content_close(hlcache_handle *h)
 
 
 /* exported interface, documented in content/content.h */
-void content_clear_selection(hlcache_handle *h)
+void content_clear_selection(struct hlcache_handle *h)
 {
 	struct content *c = hlcache_handle_get_content(h);
 	assert(c != 0);
@@ -855,7 +857,7 @@ void content_clear_selection(hlcache_handle *h)
 
 
 /* exported interface, documented in content/content.h */
-char * content_get_selection(hlcache_handle *h)
+char * content_get_selection(struct hlcache_handle *h)
 {
 	struct content *c = hlcache_handle_get_content(h);
 	assert(c != 0);
@@ -951,7 +953,7 @@ nserror content_debug(struct hlcache_handle *h, enum content_debug op)
 
 /* exported interface documented in content/content.h */
 struct content_rfc5988_link *
-content_find_rfc5988_link(hlcache_handle *h, lwc_string *rel)
+content_find_rfc5988_link(struct hlcache_handle *h, lwc_string *rel)
 {
 	struct content *c = hlcache_handle_get_content(h);
 	struct content_rfc5988_link *link = c->links;
@@ -1050,7 +1052,7 @@ nsurl *content_get_url(struct content *c)
 
 
 /* exported interface documented in content/content.h */
-content_type content_get_type(hlcache_handle *h)
+content_type content_get_type(struct hlcache_handle *h)
 {
 	struct content *c = hlcache_handle_get_content(h);
 
@@ -1062,7 +1064,7 @@ content_type content_get_type(hlcache_handle *h)
 
 
 /* exported interface documented in content/content.h */
-lwc_string *content_get_mime_type(hlcache_handle *h)
+lwc_string *content_get_mime_type(struct hlcache_handle *h)
 {
 	return content__get_mime_type(hlcache_handle_get_content(h));
 }
@@ -1095,7 +1097,7 @@ bool content__set_title(struct content *c, const char *title)
 
 
 /* exported interface documented in content/content.h */
-const char *content_get_title(hlcache_handle *h)
+const char *content_get_title(struct hlcache_handle *h)
 {
 	return content__get_title(hlcache_handle_get_content(h));
 }
@@ -1113,7 +1115,7 @@ const char *content__get_title(struct content *c)
 
 
 /* exported interface documented in content/content.h */
-content_status content_get_status(hlcache_handle *h)
+content_status content_get_status(struct hlcache_handle *h)
 {
 	return content__get_status(hlcache_handle_get_content(h));
 }
@@ -1130,7 +1132,7 @@ content_status content__get_status(struct content *c)
 
 
 /* exported interface documented in content/content.h */
-const char *content_get_status_message(hlcache_handle *h)
+const char *content_get_status_message(struct hlcache_handle *h)
 {
 	return content__get_status_message(hlcache_handle_get_content(h));
 }
@@ -1147,7 +1149,7 @@ const char *content__get_status_message(struct content *c)
 
 
 /* exported interface documented in content/content.h */
-int content_get_width(hlcache_handle *h)
+int content_get_width(struct hlcache_handle *h)
 {
 	return content__get_width(hlcache_handle_get_content(h));
 }
@@ -1164,7 +1166,7 @@ int content__get_width(struct content *c)
 
 
 /* exported interface documented in content/content.h */
-int content_get_height(hlcache_handle *h)
+int content_get_height(struct hlcache_handle *h)
 {
 	return content__get_height(hlcache_handle_get_content(h));
 }
@@ -1181,7 +1183,7 @@ int content__get_height(struct content *c)
 
 
 /* exported interface documented in content/content.h */
-int content_get_available_width(hlcache_handle *h)
+int content_get_available_width(struct hlcache_handle *h)
 {
 	return content__get_available_width(hlcache_handle_get_content(h));
 }
@@ -1198,7 +1200,7 @@ int content__get_available_width(struct content *c)
 
 
 /* exported interface documented in content/content.h */
-const uint8_t *content_get_source_data(hlcache_handle *h, size_t *size)
+const uint8_t *content_get_source_data(struct hlcache_handle *h, size_t *size)
 {
 	return content__get_source_data(hlcache_handle_get_content(h), size);
 }
@@ -1218,7 +1220,7 @@ const uint8_t *content__get_source_data(struct content *c, size_t *size)
 
 
 /* exported interface documented in content/content.h */
-void content_invalidate_reuse_data(hlcache_handle *h)
+void content_invalidate_reuse_data(struct hlcache_handle *h)
 {
 	content__invalidate_reuse_data(hlcache_handle_get_content(h));
 }
@@ -1236,7 +1238,7 @@ void content__invalidate_reuse_data(struct content *c)
 
 
 /* exported interface documented in content/content.h */
-nsurl *content_get_refresh_url(hlcache_handle *h)
+nsurl *content_get_refresh_url(struct hlcache_handle *h)
 {
 	return content__get_refresh_url(hlcache_handle_get_content(h));
 }
@@ -1253,7 +1255,7 @@ nsurl *content__get_refresh_url(struct content *c)
 
 
 /* exported interface documented in content/content.h */
-struct bitmap *content_get_bitmap(hlcache_handle *h)
+struct bitmap *content_get_bitmap(struct hlcache_handle *h)
 {
 	return content__get_bitmap(hlcache_handle_get_content(h));
 }
@@ -1277,7 +1279,7 @@ struct bitmap *content__get_bitmap(struct content *c)
 
 
 /* exported interface documented in content/content.h */
-bool content_get_opaque(hlcache_handle *h)
+bool content_get_opaque(struct hlcache_handle *h)
 {
 	return content__get_opaque(hlcache_handle_get_content(h));
 }
@@ -1297,7 +1299,7 @@ bool content__get_opaque(struct content *c)
 
 
 /* exported interface documented in content/content.h */
-bool content_get_quirks(hlcache_handle *h)
+bool content_get_quirks(struct hlcache_handle *h)
 {
 	struct content *c = hlcache_handle_get_content(h);
 
@@ -1310,7 +1312,7 @@ bool content_get_quirks(hlcache_handle *h)
 
 /* exported interface documented in content/content.h */
 const char *
-content_get_encoding(hlcache_handle *h, enum content_encoding_type op)
+content_get_encoding(struct hlcache_handle *h, enum content_encoding_type op)
 {
 	return content__get_encoding(hlcache_handle_get_content(h), op);
 }
@@ -1333,7 +1335,7 @@ content__get_encoding(struct content *c, enum content_encoding_type op)
 
 
 /* exported interface documented in content/content.h */
-bool content_is_locked(hlcache_handle *h)
+bool content_is_locked(struct hlcache_handle *h)
 {
 	return content__is_locked(hlcache_handle_get_content(h));
 }
@@ -1347,7 +1349,7 @@ bool content__is_locked(struct content *c)
 
 
 /* exported interface documented in content/content.h */
-const llcache_handle *content_get_llcache_handle(struct content *c)
+const struct llcache_handle *content_get_llcache_handle(struct content *c)
 {
 	if (c == NULL)
 		return NULL;

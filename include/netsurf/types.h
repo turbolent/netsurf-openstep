@@ -27,7 +27,9 @@
 #ifndef NETSURF_TYPES_H
 #define NETSURF_TYPES_H
 
+#ifndef NeXT
 #include <stdint.h>
+#endif
 
 /**
  * Colour type: XBGR

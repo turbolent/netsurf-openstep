@@ -272,7 +272,7 @@ static inline bool layout_flex__base_and_main_sizes(
 
 	if (item->basis == CSS_FLEX_BASIS_SET) {
 		if (item->basis_unit == CSS_UNIT_PCT) {
-			item->base_size = FPCT_OF_INT_TOINT(
+			item->base_size = ns_css_pct_to_int(
 					item->basis_length,
 					available_width);
 		} else {

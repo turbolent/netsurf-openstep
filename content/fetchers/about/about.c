@@ -26,7 +26,9 @@
  * information from the browser from a known, fixed URL.
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stddef.h>
 #include <stdarg.h>
 #include <stdio.h>

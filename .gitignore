@@ -15,7 +15,6 @@ nsfb
 nsqt
 nsmonkey
 nsdebug
-Makefile.config
 NetSurf.exe
 netsurf-installer.exe
 NetSurf.app

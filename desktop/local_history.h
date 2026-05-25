@@ -19,8 +19,10 @@
 #ifndef NETSURF_DESKTOP_LOCAL_HISTORY_H
 #define NETSURF_DESKTOP_LOCAL_HISTORY_H
 
+#ifndef NeXT
 #include <stdbool.h>
 #include <stdint.h>
+#endif
 
 #include "utils/errors.h"
 #include "netsurf/mouse.h"

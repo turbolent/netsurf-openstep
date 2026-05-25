@@ -30,7 +30,9 @@
 
 #include "utils/config.h"
 #include <assert.h>
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
@@ -1881,6 +1883,17 @@ bool html_redraw_box(const html_content *html, struct box *box,
 	}
 
 	/* scrollbars */
+#ifdef NeXT
+	/*
+	 * OPENSTEP uses NSScrollView for the top-level document viewport.
+	 * Keep NetSurf scrollbars for in-page overflow boxes, but do not
+	 * paint a second scrollbar for the document body.
+	 */
+	if (box->parent != NULL && box->parent->parent == NULL) {
+		return ((!plot->group_end) ||
+			(ctx->plot->group_end(ctx) == NSERROR_OK));
+	}
+#endif
 	if (((box->style && box->type != BOX_BR &&
 	      box->type != BOX_TABLE && box->type != BOX_INLINE &&
 	      (box->gadget == NULL || box->gadget->type != GADGET_TEXTAREA) &&

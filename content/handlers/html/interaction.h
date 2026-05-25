@@ -67,7 +67,7 @@ nserror html_mouse_action(struct content *c, struct browser_window *bw,
 			browser_mouse_state mouse, int x, int y);
 
 
-bool html_keypress(struct content *c, uint32_t key);
+bool html_keypress(struct content *c, struct browser_window *bw, uint32_t key);
 
 
 void html_overflow_scroll_callback(void *client_data,

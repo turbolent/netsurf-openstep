@@ -22,7 +22,9 @@
  * implementation of content handler for BMP images.
  */
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 #include <stdlib.h>
 #include <libnsbmp.h>
 

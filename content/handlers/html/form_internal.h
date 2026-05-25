@@ -24,7 +24,9 @@
 #ifndef NETSURF_HTML_FORM_INTERNAL_H
 #define NETSURF_HTML_FORM_INTERNAL_H
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 #include "netsurf/form.h"
 

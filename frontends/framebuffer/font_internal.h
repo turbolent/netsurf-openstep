@@ -19,7 +19,9 @@
 #ifndef NETSURF_FB_FONT_INTERNAL_H
 #define NETSURF_FB_FONT_INTERNAL_H
 
+#ifndef NeXT
 #include <stdbool.h>
+#endif
 
 struct fb_font_desc {
     const char *name;

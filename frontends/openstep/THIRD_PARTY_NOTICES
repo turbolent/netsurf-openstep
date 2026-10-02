@@ -1,0 +1,43 @@
+NetSurf 3.12 development build for OPENSTEP Intel
+
+NetSurf uses GPL version 2 with the OpenSSL linking exception in
+NetSurf-COPYING. Keep the binary and matching source archives available
+together. The source archive includes the application, dependency source
+archives, OPENSTEP patches, and build scripts. See BUILDING.txt.
+
+Included software and license texts (relative to Resources/Licenses):
+  NetSurf                       NetSurf-COPYING
+  Duktape 2.7.0                 Duktape-LICENSE-AUTHORS.txt
+  DejaVu Fonts 2.37             LICENSE-DejaVu
+  zlib                          zlib/LICENSE
+  libpng                        libpng/LICENSE
+  Independent JPEG Group       jpeg/README
+  OpenSSL                       openssl/LICENSE
+  curl                          curl/COPYING
+  Expat                         expat/COPYING
+  FreeType                      freetype/LICENSE.TXT, freetype/docs/*
+  utf8proc and Unicode data     utf8proc/LICENSE.md
+  GNU libiconv/libcharset       libiconv/COPYING.LIB, libiconv/libcharset/COPYING.LIB
+  GCC runtime support          gcc42/gcc/libgcc-exception.txt, gcc42/COPYING
+  Mozilla CA certificate data   Mozilla-MPL-2.0.txt
+  NetSurf libraries             each library's COPYING in its named directory:
+    libwapcaplet, libparserutils, libhubbub, libcss, libdom, libnsutils,
+    libnsbmp, libnsgif, libsvgtiny, libnslog, libnsfb
+
+This software is based in part on the work of the Independent JPEG Group.
+This product includes software developed by the OpenSSL Project for use in
+the OpenSSL Toolkit (https://www.openssl.org/).
+This product includes cryptographic software written by Eric Young
+(eay@cryptsoft.com) and software written by Tim Hudson (tjh@cryptsoft.com).
+FreeType is included under its GPLv2 option; both upstream license texts are
+preserved. The libiconv library portions use LGPL terms; its COPYING file
+also describes separately licensed utilities in the accompanying source.
+
+CA data snapshot: Mozilla roots extracted by curl's mk-ca-bundle.pl,
+2026-05-14. The unchanged PEM data is supplied in the application and source.
+Upstream data: https://curl.se/docs/caextract.html
+License: https://www.mozilla.org/en-US/MPL/2.0/
+
+PROVENANCE.json records the source of the copied license texts. The release
+SOURCE-MANIFEST.json records dependency input hashes and the source snapshot.
+OPENSTEP frameworks are supplied by the OS and are not redistributed.

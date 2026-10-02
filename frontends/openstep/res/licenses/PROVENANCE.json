@@ -1,0 +1,134 @@
+{
+  "zlib/LICENSE": {
+    "source": "zlib/zlib-1.2.13.tar.gz:zlib-1.2.13/LICENSE",
+    "sha256": "845efc77857d485d91fb3e0b884aaa929368c717ae8186b66fe1ed2495753243"
+  },
+  "libpng/LICENSE": {
+    "source": "libpng/libpng-1.6.58.tar.gz:libpng-1.6.58/LICENSE",
+    "sha256": "bdb0a645ea18c60507d0368379b1ac5474b92255fcc2d115e07486a7672ba526"
+  },
+  "jpeg/README": {
+    "source": "jpeg/jpegsrc.v8d.tar.gz:jpeg-8d/README",
+    "sha256": "b68cc28ec436dd38ba1db9fb7f706f990d794df923629785a69f1154b8f44411"
+  },
+  "openssl/LICENSE": {
+    "source": "openssl/openssl-1.1.1w.tar.gz:openssl-1.1.1w/LICENSE",
+    "sha256": "c32913b33252e71190af2066f08115c69bc9fddadf3bf29296e20c835389841c"
+  },
+  "curl/COPYING": {
+    "source": "curl/curl-8.17.0.tar.gz:curl-8.17.0/COPYING",
+    "sha256": "e18f1989333b70044b2adfb7dc2f905d0119dbdcac3bc9f4bc9d540e3a29de5b"
+  },
+  "expat/COPYING": {
+    "source": "expat/expat-2.8.1.tar.gz:expat-2.8.1/COPYING",
+    "sha256": "31b15de82aa19a845156169a17a5488bf597e561b2c318d159ed583139b25e87"
+  },
+  "freetype/docs/GPLv2.TXT": {
+    "source": "freetype/freetype-2.14.3.tar.gz:freetype-2.14.3/docs/GPLv2.TXT",
+    "sha256": "c4120c6752c910c299e3bd9cb3a46ff262c268303ca2069b61f92f10a5656c18"
+  },
+  "freetype/docs/FTL.TXT": {
+    "source": "freetype/freetype-2.14.3.tar.gz:freetype-2.14.3/docs/FTL.TXT",
+    "sha256": "5a5ee54c5001bbad1cdc1a57cc3dd4c42199b2da09d39c7ee41fab002d02967f"
+  },
+  "freetype/LICENSE.TXT": {
+    "source": "freetype/freetype-2.14.3.tar.gz:freetype-2.14.3/LICENSE.TXT",
+    "sha256": "bd36c8b474855fa294c2ec5c184544478ef3720aad37d65a6296a4f264fd2d3b"
+  },
+  "utf8proc/LICENSE.md": {
+    "source": "utf8proc/utf8proc-2.11.3.tar.gz:utf8proc-2.11.3/LICENSE.md",
+    "sha256": "3b510150d34f248a221bb88e1d811238d6c6c18b51231822c42974c39bb07256"
+  },
+  "libnsutils/COPYING": {
+    "source": "libnsutils/libnsutils-0.1.1-src.tar.gz:libnsutils-0.1.1/COPYING",
+    "sha256": "5c03b42797e3771e49c1ebf59add815032ae8075b7395b9eb22d56558d8bd6a1"
+  },
+  "libparserutils/COPYING": {
+    "source": "libparserutils/libparserutils-0.2.5-src.tar.gz:libparserutils-0.2.5/COPYING",
+    "sha256": "013353db9c43c41b824a619c3df91dabd84416afcf3d20015d6604b4f4f88cd7"
+  },
+  "libwapcaplet/COPYING": {
+    "source": "libwapcaplet/libwapcaplet-0.4.3-src.tar.gz:libwapcaplet-0.4.3/COPYING",
+    "sha256": "74e909cf3ed08b8c26ef3fb3381cb6f4d6d14b8d8f7ccff54e003eac4fb3cc0f"
+  },
+  "libhubbub/COPYING": {
+    "source": "libhubbub/libhubbub-0.3.8-src.tar.gz:libhubbub-0.3.8/COPYING",
+    "sha256": "8041915c2c9110a077196b560f08411dee9909581ba7701cc144bc5dd3fe96e4"
+  },
+  "libcss/COPYING": {
+    "source": "libcss/libcss-0.9.2-src.tar.gz:libcss-0.9.2/COPYING",
+    "sha256": "8041915c2c9110a077196b560f08411dee9909581ba7701cc144bc5dd3fe96e4"
+  },
+  "libdom/COPYING": {
+    "source": "libdom/libdom-0.4.2-src.tar.gz:libdom-0.4.2/COPYING",
+    "sha256": "8041915c2c9110a077196b560f08411dee9909581ba7701cc144bc5dd3fe96e4"
+  },
+  "libnsbmp/COPYING": {
+    "source": "libnsbmp/libnsbmp-0.1.7-src.tar.gz:libnsbmp-0.1.7/COPYING",
+    "sha256": "bec1a28e7f95e0b2acc624bf9e6d8556451f454ea6a213f8c1bc0fe792c61ead"
+  },
+  "libnsgif/COPYING": {
+    "source": "libnsgif/libnsgif-1.0.0-src.tar.gz:libnsgif-1.0.0/COPYING",
+    "sha256": "1469b759cf18e43c6e1b4ff892307d3962cbbb337ac497620d6690a219fad10c"
+  },
+  "libsvgtiny/COPYING": {
+    "source": "libsvgtiny/libsvgtiny-0.1.8-src.tar.gz:libsvgtiny-0.1.8/COPYING",
+    "sha256": "cccfbac7a4da3ba080d29ce2b4f9719aa78bf1d1cb956d989bad801fa9316181"
+  },
+  "libnslog/COPYING": {
+    "source": "libnslog/libnslog-0.1.3-src.tar.gz:libnslog-0.1.3/COPYING",
+    "sha256": "5c03b42797e3771e49c1ebf59add815032ae8075b7395b9eb22d56558d8bd6a1"
+  },
+  "libnsfb/COPYING": {
+    "source": "libnsfb/libnsfb-0.2.2-src.tar.gz:libnsfb-0.2.2/COPYING",
+    "sha256": "b84af7f5d985aff5e98bb6bebdcc6b64ff3662c16c18b5c4348b6dc4465e2ca6"
+  },
+  "libiconv/COPYING.LIB": {
+    "source": "libiconv/libiconv-1.15.tar.gz:libiconv-1.15/COPYING.LIB",
+    "sha256": "56bdea73b6145ef6ac5259b3da390b981d840c24cb03b8e1cbc678de7ecfa18d"
+  },
+  "libiconv/COPYING": {
+    "source": "libiconv/libiconv-1.15.tar.gz:libiconv-1.15/COPYING",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+  },
+  "libiconv/libcharset/COPYING.LIB": {
+    "source": "libiconv/libiconv-1.15.tar.gz:libiconv-1.15/libcharset/COPYING.LIB",
+    "sha256": "56bdea73b6145ef6ac5259b3da390b981d840c24cb03b8e1cbc678de7ecfa18d"
+  },
+  "gcc42/COPYING": {
+    "source": "gcc42/gcc-5666.3.tar.gz:gcc-gcc-5666.3/COPYING",
+    "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+  },
+  "gcc42/COPYING.LIB": {
+    "source": "gcc42/gcc-5666.3.tar.gz:gcc-gcc-5666.3/COPYING.LIB",
+    "sha256": "a9bdde5616ecdd1e980b44f360600ee8783b1f99b8cc83a2beb163a0a390e861"
+  },
+  "gcc42/gcc/COPYING": {
+    "source": "gcc42/gcc-5666.3.tar.gz:gcc-gcc-5666.3/gcc/COPYING",
+    "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+  },
+  "gcc42/gcc/COPYING.LIB": {
+    "source": "gcc42/gcc-5666.3.tar.gz:gcc-gcc-5666.3/gcc/COPYING.LIB",
+    "sha256": "32434afcc8666ba060e111d715bfdb6c2d5dd8a35fa4d3ab8ad67d8f850d2f2b"
+  },
+  "gcc42/gcc/libgcc-exception.txt": {
+    "source": "gcc42/gcc-5666.3.tar.gz:gcc-gcc-5666.3/gcc/libgcc2.c",
+    "sha256": "a9b254ff1408df5c6ee25e34c9c6f242da04a974e786715b7cc9d5224976d5ab"
+  },
+  "gcc42/include/COPYING": {
+    "source": "gcc42/gcc-5666.3.tar.gz:gcc-gcc-5666.3/include/COPYING",
+    "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+  },
+  "gcc42/libiberty/COPYING.LIB": {
+    "source": "gcc42/gcc-5666.3.tar.gz:gcc-gcc-5666.3/libiberty/COPYING.LIB",
+    "sha256": "32434afcc8666ba060e111d715bfdb6c2d5dd8a35fa4d3ab8ad67d8f850d2f2b"
+  },
+  "Duktape-LICENSE-AUTHORS.txt": {
+    "source": "content/handlers/javascript/duktape/duktape.c",
+    "sha256": "d119814a4591150b4bf7fb4ab4432d1fdcde6914f779eba523a49079e0ccd66c"
+  },
+  "Mozilla-MPL-2.0.txt": {
+    "source": "https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt",
+    "sha256": "fab3dd6bdab226f1c08630b1dd917e11fcb4ec5e1e020e2c16f83a0a13863e85"
+  }
+}

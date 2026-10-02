@@ -1,0 +1,56 @@
+Building this OPENSTEP NetSurf release
+====================================
+
+The source archive contains netsurf/ and openstep-pkg/. The latter contains
+dependency source archives, patches, package recipes, and shared helpers
+corresponding to the recorded dependency inputs. All dependency source inputs
+are supplied locally. OPENSTEP 4.2 and its licensed Developer tools/system
+frameworks must be supplied separately.
+
+Unpack on an OPENSTEP Intel build host. The package manager installs into
+/usr/local; use a dedicated build host or back up an existing toolchain.
+Allow time and disk space for the three-stage native GCC bootstrap.
+
+In a Bourne shell:
+  /bin/sh
+  PATH=/usr/local/bin:/usr/ucb:/bin:/usr/bin
+  export PATH
+
+From openstep-pkg/, bootstrap the build shell:
+  /bin/sh ./pkg install pdksh
+
+Then install the required packages (pkg resolves included dependencies):
+  /bin/sh ./pkg install gcc42 make pkg-config netsurf-buildsystem nsgenbind \
+    ca-certificates zlib libpng jpeg openssl curl expat freetype utf8proc \
+    libiconv libnsutils libparserutils libwapcaplet libhubbub libcss libdom \
+    libnsbmp libnsgif libsvgtiny libnslog libnsfb
+
+From netsurf/, run the command used for this executable:
+  /usr/local/bin/gnumake HOST=NeXT TARGET=openstep
+
+The result is NetSurf.app. Makefile.config selects GCC 4.2 and the OPENSTEP
+compatibility headers. Normal builds use -Os. Makefile.standalone uses -O0
+and explicitly prefers static archives; it is an alternative recipe, not the
+command used for the shipped executable.
+
+The release host contained static dependency libraries. Check rebuilt apps
+with /bin/otool -L NetSurf.app/NetSurf: only OPENSTEP system frameworks should
+appear. Test away from the sources and without access to /usr/local files.
+
+To modify/relink a library (including LGPL libiconv), modify its included
+source/patch, rebuild/install the package, then rebuild NetSurf from clean
+objects. All application source is provided; no proprietary application
+object files are needed. System frameworks remain OS prerequisites.
+
+SOURCE-MANIFEST.json records the base commit, the complete modified source
+snapshot, and dependency input hashes. Text files use LF. Dependency inputs
+are checked against the host's dependency build record. This is matching
+source, not a promise of bit-identical output: timestamps, paths, tools, and
+generated metadata can change executable bytes.
+
+Release assembly on a machine with Python 3 and Git uses
+netsurf/tools/package-openstep-release.py. Supply a native app tar.gz, the
+openstep-pkg directory, the dependency_input_sha256 map extracted from
+SOURCE-MANIFEST.json as a JSON file, and a truthful validation report. The
+helper verifies inputs and emits binary/source archives and SHA256SUMS.
+It does not publish. A Git checkout is needed to enumerate source files.

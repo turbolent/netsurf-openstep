@@ -39,6 +39,12 @@
 
 #include <nsutils/assert.h>
 
+#if defined(NeXT) && defined(NETSURF_UTILS_OPENSTEP_H)
+/* Our forced compatibility header already supplies the C99 types.  Older
+ * libnsgif OPENSTEP headers unconditionally typedef bool as unsigned char,
+ * which conflicts with our C99 bool macro. */
+#define NSGIF_OPENSTEP_H
+#endif
 #include <nsgif.h>
 
 #include "utils/log.h"

@@ -181,6 +181,9 @@ int rmdir(const char *path);
 char *strdup(const char *s);
 int snprintf(char *str, size_t size, const char *format, ...);
 int vsnprintf(char *str, size_t size, const char *format, va_list ap);
+long long int strtoll(const char *nptr, char **endptr, int base);
+float strtof(const char *nptr, char **endptr);
+float ceilf(float x);
 
 #ifndef NSInteger
 typedef int NSInteger;

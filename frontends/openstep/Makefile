@@ -6,8 +6,8 @@ POSTEXES += NetSurf.app
 
 SDK_CFLAGS := -F/NextLibrary/Frameworks
 SDK_LDFLAGS := -F/NextLibrary/Frameworks -framework Foundation -framework AppKit
-OBJC_CC := /usr/local/bin/gcc
-LINK_CC := /usr/local/bin/gcc
+OBJC_CC := /usr/local/bin/gcc-4.2
+LINK_CC := /usr/local/bin/gcc-4.2
 
 CFLAGS :=  $(SDK_CFLAGS) $(CFLAGS)
 CFLAGS += -I/NextDeveloper/Headers/bsd -I/usr/include/bsd
@@ -25,10 +25,16 @@ LDFLAGS += -sectcreate __ICON __header $(FRONTEND_RESOURCES_DIR)/NetSurf.iconhea
 LDFLAGS += -segprot __ICON r r
 LDFLAGS += -sectcreate __ICON app $(FRONTEND_RESOURCES_DIR)/NetSurf.tiff
 
-CFLAGS += -D_BSD_SOURCE -D_POSIX_C_SOURCE -std=c99 -g -Os
+CFLAGS += -D_BSD_SOURCE -D_POSIX_C_SOURCE -std=c99 -g
+ifneq ($(NETSURF_OPENSTEP_STANDALONE_STATIC_LIBDIR),)
+CFLAGS += -O0
+else
+CFLAGS += -Os
+endif
 CFLAGS += -I/usr/X11/include
 
 CFLAGS += -Ifrontends/framebuffer
+CFLAGS += -DNETSURF_OPENSTEP_USE_FRAMEBUFFER -Dnsframebuffer
 CFLAGS += '-DNETSURF_FB_RESPATH="$(NETSURF_OPENSTEP_RES_PATH)"'
 CFLAGS += '-DNETSURF_FB_FONTPATH="$(NETSURF_FB_FONTPATH)"'
 CFLAGS += '-DNETSURF_FB_FONT_SANS_SERIF="$(NETSURF_FB_FONT_SANS_SERIF)"'
@@ -45,11 +51,18 @@ CFLAGS += '-DNETSURF_FB_FONT_MONOSPACE_ITALIC="$(NETSURF_FB_FONT_MONOSPACE_ITALI
 CFLAGS += '-DNETSURF_FB_FONT_MONOSPACE_ITALIC_BOLD="$(NETSURF_FB_FONT_MONOSPACE_ITALIC_BOLD)"'
 CFLAGS += '-DNETSURF_FB_FONT_CURSIVE="$(NETSURF_FB_FONT_CURSIVE)"'
 CFLAGS += '-DNETSURF_FB_FONT_FANTASY="$(NETSURF_FB_FONT_FANTASY)"'
-CFLAGS += $(shell pkg-config --cflags libnsfb)
-LDFLAGS += $(shell pkg-config --libs libnsfb)
+CFLAGS += $(shell $(PKG_CONFIG) --cflags libnsfb)
+LDFLAGS += $(shell $(PKG_CONFIG) --libs libnsfb)
 ifeq ($(NETSURF_FB_FONTLIB),freetype)
-CFLAGS += -DFB_USE_FREETYPE $(shell pkg-config --cflags freetype2)
-LDFLAGS += $(shell pkg-config --libs freetype2)
+CFLAGS += -DFB_USE_FREETYPE $(shell $(PKG_CONFIG) --cflags freetype2)
+LDFLAGS += $(shell $(PKG_CONFIG) --libs freetype2)
+endif
+
+# A standalone build places copies of every third-party archive here.  Keeping
+# this directory first makes each -l option select an archive even when a
+# package has also installed a dylib under /usr/local/lib.
+ifneq ($(NETSURF_OPENSTEP_STANDALONE_STATIC_LIBDIR),)
+  LDFLAGS := -L$(NETSURF_OPENSTEP_STANDALONE_STATIC_LIBDIR) $(LDFLAGS)
 endif
 
 OBJCFLAGS := $(filter-out -std=c99,$(CFLAGS)) -std=gnu99 -fconstant-string-class=NSConstantString
@@ -101,9 +114,17 @@ R_RESOURCES := \
 
 R_RESOURCES := $(addprefix $(FRONTEND_RESOURCES_DIR)/,$(R_RESOURCES))
 
+FONT_RESOURCES := $(addprefix $(FRONTEND_RESOURCES_DIR)/fonts/, \
+	DejaVuSans.ttf DejaVuSans-Bold.ttf \
+	DejaVuSans-Oblique.ttf DejaVuSans-BoldOblique.ttf \
+	DejaVuSansMono.ttf DejaVuSansMono-Bold.ttf \
+	DejaVuSansMono-Oblique.ttf DejaVuSansMono-BoldOblique.ttf \
+	DejaVuSerif.ttf DejaVuSerif-Bold.ttf \
+	DejaVuSerif-Italic.ttf DejaVuSerif-BoldItalic.ttf)
+FONT_LICENSE := $(FRONTEND_RESOURCES_DIR)/fonts/LICENSE-DejaVu
+
 E_RESOURCES := \
 	adblock.css	\
-	ca-bundle	\
 	default.css	\
 	internal.css	\
 	quirks.css	\
@@ -124,7 +145,8 @@ LOCALIZED_RESOURCES := Localizable.strings
 
 install-openstep: NetSurf.app
 
-NetSurf.app: NetSurf $(FRONTEND_SOURCE_DIR)/Makefile $(R_RESOURCES)
+.PHONY: package-openstep-resources
+NetSurf.app: NetSurf $(FRONTEND_SOURCE_DIR)/Makefile $(R_RESOURCES) $(FONT_RESOURCES) $(FONT_LICENSE) package-openstep-resources
 	$(VQ)echo Assembling NetSurf.app bundle
 	$(Q)test -d NetSurf.app || mkdir NetSurf.app
 	$(Q)cp NetSurf NetSurf.app/
@@ -133,6 +155,14 @@ NetSurf.app: NetSurf $(FRONTEND_SOURCE_DIR)/Makefile $(R_RESOURCES)
 	$(Q)mkdir -p NetSurf.app/Resources
 	$(Q)cp -pLR $(R_RESOURCES) NetSurf.app/Resources
 	$(Q)cp -pLR $(E_RESOURCES) NetSurf.app/
+	$(Q)mkdir -p NetSurf.app/Resources/Fonts NetSurf.app/Resources/Licenses
+	$(Q)cp -p $(FONT_RESOURCES) NetSurf.app/Resources/Fonts/
+	$(Q)cp -p $(FONT_LICENSE) NetSurf.app/Resources/Licenses/
+	$(Q)cp -pR $(FRONTEND_RESOURCES_DIR)/licenses/. NetSurf.app/Resources/Licenses/
+	$(Q)cp -p COPYING NetSurf.app/Resources/Licenses/NetSurf-COPYING
+	$(Q)cp -p $(FRONTEND_SOURCE_DIR)/THIRD_PARTY_NOTICES NetSurf.app/Resources/Licenses/
+	$(Q)cp -p $(FRONTEND_SOURCE_DIR)/RELEASE-README.txt NetSurf.app/Resources/README.txt
+	$(Q)cp -p $(FRONTEND_RESOURCES_DIR)/ca-bundle NetSurf.app/ca-bundle
 
 CLEANS += clean-package-openstep
 

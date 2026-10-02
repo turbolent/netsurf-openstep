@@ -201,6 +201,8 @@ static void openstep_add_menu_item(NSMenu *menu, NSString *title, SEL action,
 int main(int argc, char **argv)
 {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
+	NSString *bundleFontPath;
+	NSString *resourceSearchPath;
 	nserror error;
 	NSApplication *app;
 	AppDelegate *delegate;
@@ -224,7 +226,13 @@ int main(int argc, char **argv)
 	if (error != NSERROR_OK) {
 		NSLOG(netsurf, INFO, "Failed to load user preferences");
 	}
-	respaths = fb_init_resource_path(NETSURF_OPENSTEP_RES_PATH ":" NETSURF_FB_FONTPATH);
+	bundleFontPath = [[[NSBundle mainBundle] resourcePath]
+		stringByAppendingPathComponent: @"Fonts"];
+	resourceSearchPath = [NSString stringWithFormat: @"%@:%s:%s",
+		bundleFontPath,
+		NETSURF_OPENSTEP_RES_PATH,
+		NETSURF_FB_FONTPATH];
+	respaths = fb_init_resource_path([resourceSearchPath cString]);
 	NSCAssert(respaths != NULL,
 		@"Framebuffer resource path initialisation failed");
 	error = netsurf_init(NULL);

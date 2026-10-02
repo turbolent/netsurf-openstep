@@ -1,0 +1,17 @@
+# Bootstrap Makefile for a self-contained OPENSTEP release.
+#
+# This is intentionally separate from the main Makefile: the normal NetSurf
+# makefiles query the compiler and pkg-config while they are being parsed, but
+# this target is also responsible for installing those tools.
+
+.PHONY: standalone clean-standalone
+
+standalone:
+	@if test -z "$(OPENSTEP_PKG_DIR)"; then \
+		echo "OPENSTEP_PKG_DIR must name an openstep-pkg checkout" >&2; \
+		exit 1; \
+	fi
+	@/bin/sh frontends/openstep/build-standalone.sh "$(OPENSTEP_PKG_DIR)"
+
+clean-standalone:
+	@/bin/sh frontends/openstep/build-standalone.sh --clean

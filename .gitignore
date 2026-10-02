@@ -24,3 +24,5 @@ NetSurf
 core
 nsfb-*
 build
+dist
+__pycache__/
